@@ -7,7 +7,7 @@ username: pawelx14@gmail.com password: HeadChef
 
 username: pawelx140@gmail.com password: NormalChef
 
-username: pawelx14@04gmail.com password: DeliveryDriver
+username: pawelx1404@gmail.com password: DeliveryDriver
 
 The fridge ID to type in: 12345
 For now adding fridges is done manually by typing in and does not save after closing the app. That will be replaced by QR code scanning later on.

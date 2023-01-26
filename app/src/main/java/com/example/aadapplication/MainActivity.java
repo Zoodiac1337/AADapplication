@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             myIntent.putExtra("message", email);
             startActivity(myIntent);
             Toast.makeText(MainActivity.this, email+" logged in", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     public void signup(String email, String password){
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Registration successful. Please sign in.", Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(MainActivity.this, signInActivity.class);
                     startActivity(myIntent);
-                    //user has been signed in, use an intent to move to the next activity
+                    finish();
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("MainActivity", "createUserWithEmail:failure", task.getException());

@@ -119,4 +119,10 @@ public class chooseFridgeActivity extends AppCompatActivity {
             }
         });
     }
+    public void signoutButtonClicked(View view){
+        FirebaseAuth.getInstance().signOut();
+        Intent myIntent = new Intent(chooseFridgeActivity.this, signInActivity.class);
+        startActivity(myIntent);
+        finish();
+    }
 }

@@ -40,6 +40,7 @@ public class signInActivity extends AppCompatActivity {
             myIntent.putExtra("message", email);
             startActivity(myIntent);
             Toast.makeText(signInActivity.this, email+" logged in", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     public void signin(String email, String password){
@@ -53,6 +54,7 @@ public class signInActivity extends AppCompatActivity {
                     Intent myIntent = new Intent(signInActivity.this, chooseFridgeActivity.class);
                     myIntent.putExtra("message", email);
                     startActivity(myIntent);
+                    finish();
                     Toast.makeText(signInActivity.this, email+" logged in", Toast.LENGTH_SHORT).show();
                 } else {
                     // If sign in fails, display a message to the user.

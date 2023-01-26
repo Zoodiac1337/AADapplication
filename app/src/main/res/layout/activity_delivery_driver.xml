@@ -6,4 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".deliveryDriverActivity">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/HCInsertItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Insert an item (scan a bar code)" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <Button
+            android:id="@+id/HCRemoveItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact the head chef" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <Button
+            android:id="@+id/HCCheckStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View my PIN number" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

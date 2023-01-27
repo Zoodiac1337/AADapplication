@@ -6,16 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class headChefActivity extends AppCompatActivity {
+public class scanBarCodeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_head_chef);
+        setContentView(R.layout.activity_scan_bar_code);
     }
 
-    public void toScanBarCode(View view) {
-        Intent myIntent = new Intent(headChefActivity.this, scanBarCodeActivity.class);
+    public void toManualInsert(View view) {
+        Intent myIntent = new Intent(scanBarCodeActivity.this, manualInsertActivity.class);
         startActivity(myIntent);
     }
 }

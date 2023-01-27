@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chefActivity">
+    tools:context=".scanBarCodeActivity">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -17,31 +17,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:text="Bar scanner placeholder" />
+
         <Button
             android:id="@+id/scanBarCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" Insert an item (scan a bar code)" />
+            android:text="Scan" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="32dp" />
 
         <Button
-            android:id="@+id/HCRemoveItem"
+            android:id="@+id/addAnotherItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Remove an item (scan a bar code)" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="32dp" />
-
-        <Button
-            android:id="@+id/HCCheckStock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Check Stock" />
-
+            android:onClick="toManualInsert"
+            android:text="Enter details manually" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/HCInsertItem"
+            android:id="@+id/scanBarCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=" Insert an item (scan a bar code)" />

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,25 +23,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class chooseFridgeActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ListView listView;
     Button button;
     EditText editText;
 
-
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Bundle bundle = getIntent().getExtras();
-        String email = bundle.getString("message");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_fridge);
 
@@ -51,6 +47,18 @@ public class chooseFridgeActivity extends AppCompatActivity {
         arrayList = new ArrayList<>();
         adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(adapter);
+
+        Bundle bundle = getIntent().getExtras();
+        String email = bundle.getString("message");
+        SharedPreferences savedFridges = getApplicationContext().getSharedPreferences(email, 0);
+        Map<String, ?> allFridges = savedFridges.getAll();
+        for (Map.Entry<String, ?> entry : allFridges.entrySet()) {
+            Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+            arrayList.add(entry.getValue().toString());
+            adapter.notifyDataSetChanged();
+        }
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +75,10 @@ public class chooseFridgeActivity extends AppCompatActivity {
                                 arrayList.add(searchFridge);
                                 adapter.notifyDataSetChanged();
                                 editText.setText("");
+                                SharedPreferences.Editor editor = savedFridges.edit();
+                                editor.putString("Fridges", searchFridge);
+                                editor.commit();
+
                             } else if (arrayList.contains(searchFridge)){
                                 Toast.makeText(chooseFridgeActivity.this, "Fridge already saved", Toast.LENGTH_SHORT).show();
                             } else {
@@ -96,12 +108,15 @@ public class chooseFridgeActivity extends AppCompatActivity {
                                 Toast.makeText(chooseFridgeActivity.this, "Account Type: " + document.getString("Type"), Toast.LENGTH_SHORT).show();
                                 if (document.getString("Type").equals("HeadChef")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, headChefActivity.class);
+                                    myIntent.putExtra("message", email);
                                     startActivity(myIntent);
                                 } else if (document.getString("Type").equals("Chef")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, chefActivity.class);
+                                    myIntent.putExtra("message", email);
                                     startActivity(myIntent);
                                 } else if (document.getString("Type").equals("DeliveryDriver")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, deliveryDriverActivity.class);
+                                    myIntent.putExtra("message", email);
                                     startActivity(myIntent);
                                 }
 

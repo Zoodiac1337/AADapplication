@@ -18,10 +18,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/HCInsertItem"
+            android:id="@+id/scanBarCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="insertItemButton"
+            android:onClick="toScanBarCode"
             android:text=" Insert an item (scan a bar code)" />
 
         <Space
@@ -69,7 +70,7 @@
             android:layout_height="32dp" />
 
         <Button
-            android:id="@+id/CHRecentAlerts"
+            android:id="@+id/saveAddingItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recent alerts" />

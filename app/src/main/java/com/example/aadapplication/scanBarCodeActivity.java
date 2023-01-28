@@ -1,27 +1,26 @@
 package com.example.aadapplication;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
-public class headChefActivity extends AppCompatActivity {
+public class scanBarCodeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_head_chef);
+        setContentView(R.layout.activity_scan_bar_code);
     }
 
-    public void insertItemButton(View view) {
-
-        startActivity(new Intent(headChefActivity.this, barcode_scanner.class));
-
-    }
-
-    public void toScanBarCode(View view) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void toManualInsert(View view) {
         Bundle bundle = getIntent().getExtras();
         String email = bundle.getString("message");
-        Intent myIntent = new Intent(headChefActivity.this, scanBarCodeActivity.class);
+        Intent myIntent = new Intent(scanBarCodeActivity.this, manualInsertActivity.class);
         myIntent.putExtra("message", email);
         startActivity(myIntent);
     }

@@ -21,6 +21,7 @@
             android:id="@+id/HCInsertItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="insertItemButton"
             android:text=" Insert an item (scan a bar code)" />
 
         <Space

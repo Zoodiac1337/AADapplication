@@ -15,7 +15,10 @@ public class headChefActivity extends AppCompatActivity {
     }
 
     public void toScanBarCode(View view) {
+        Bundle bundle = getIntent().getExtras();
+        String email = bundle.getString("message");
         Intent myIntent = new Intent(headChefActivity.this, scanBarCodeActivity.class);
+        myIntent.putExtra("message", email);
         startActivity(myIntent);
     }
 }

@@ -26,13 +26,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class chooseFridgeActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ListView listView;
     Button button;
     EditText editText;
-
 
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
@@ -110,12 +108,15 @@ public class chooseFridgeActivity extends AppCompatActivity {
                                 Toast.makeText(chooseFridgeActivity.this, "Account Type: " + document.getString("Type"), Toast.LENGTH_SHORT).show();
                                 if (document.getString("Type").equals("HeadChef")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, headChefActivity.class);
+                                    myIntent.putExtra("message", email);
                                     startActivity(myIntent);
                                 } else if (document.getString("Type").equals("Chef")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, chefActivity.class);
+                                    myIntent.putExtra("message", email);
                                     startActivity(myIntent);
                                 } else if (document.getString("Type").equals("DeliveryDriver")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, deliveryDriverActivity.class);
+                                    myIntent.putExtra("message", email);
                                     startActivity(myIntent);
                                 }
 

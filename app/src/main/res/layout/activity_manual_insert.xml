@@ -75,19 +75,11 @@
             android:layout_height="32dp" />
 
         <Button
-            android:id="@+id/addAnotherItem"
+            android:id="@+id/saveAddingItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add another item" />
+            android:onClick="saveAddingItemButtonClicked"
+            android:text="Save" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="32dp" />
-
-        <Button
-            android:id="@+id/saveAndExit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save and exit" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

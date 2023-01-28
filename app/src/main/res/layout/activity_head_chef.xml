@@ -69,7 +69,7 @@
             android:layout_height="32dp" />
 
         <Button
-            android:id="@+id/addAnotherItem"
+            android:id="@+id/saveAddingItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recent alerts" />

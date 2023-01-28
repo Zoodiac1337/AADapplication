@@ -106,10 +106,11 @@ public class barcode_scanner extends AppCompatActivity {
                                     result.addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
                                                                     @Override
                                                                     public void onSuccess(List<Barcode> barcodes) {
-                                                                        System.out.println(barcodes.size());
-                                                                        for (int i = 0; i < barcodes.size(); i++) {
 
+                                                                        for (int i = 0; i < barcodes.size(); i++) {
+                                                                            System.out.println(barcodes.size());
                                                                             Barcode barcode = barcodes.get(0);
+
                                                                             barcodeText.setText(barcode.getRawValue());
                                                                             System.out.println("Barcode Scanner "+ "Barcode value: " + barcode.getRawValue());
                                                                         }

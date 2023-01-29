@@ -51,4 +51,5 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:1.0.0-beta06"
     implementation "androidx.camera:camera-view:1.0.0-alpha13"
     implementation 'com.google.mlkit:camera:16.0.0-beta3'
+    implementation 'com.google.zxing:core:3.3.3'
 }

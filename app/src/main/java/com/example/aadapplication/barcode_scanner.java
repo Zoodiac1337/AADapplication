@@ -1,18 +1,17 @@
 package com.example.aadapplication;
 
 import android.Manifest;
-import android.content.Context;
+
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
-import android.hardware.camera2.CameraDevice;
+
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
+
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,18 +22,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 
-
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 
-import androidx.camera.lifecycle.ProcessCameraProvider;
 
 
 import java.io.IOException;
+
 import java.util.List;
 
 public class barcode_scanner extends AppCompatActivity {
@@ -63,7 +60,7 @@ public class barcode_scanner extends AppCompatActivity {
         // Initialize the barcode scanner
         BarcodeScannerOptions options =
                 new BarcodeScannerOptions.Builder()
-                        .setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS)
+                        .setBarcodeFormats(Barcode.FORMAT_EAN_8)
                         .build();
         barcodeScanner = BarcodeScanning.getClient(options);
 
@@ -107,12 +104,25 @@ public class barcode_scanner extends AppCompatActivity {
                                                                     @Override
                                                                     public void onSuccess(List<Barcode> barcodes) {
 
-                                                                        for (int i = 0; i < barcodes.size(); i++) {
+                                                                        if(barcodes.size()>0) {
+
+                                                                            //pause camera
+
                                                                             System.out.println(barcodes.size());
                                                                             Barcode barcode = barcodes.get(0);
-
                                                                             barcodeText.setText(barcode.getRawValue());
-                                                                            System.out.println("Barcode Scanner "+ "Barcode value: " + barcode.getRawValue());
+
+
+                                                                            //call api https://openfoodfacts.github.io/api-documentation/
+                                                                            //if product found use this information
+                                                                            //if product not found prompt to add to database
+
+
+
+
+                                                                            System.out.println("Barcode Scanner"+barcode.getRawBytes() +" "+barcode.getCalendarEvent()+""
+                                                                                    + barcode.getDisplayValue()+"Barcode value: " + barcode.getValueType());
+
                                                                         }
                                                                     }
                                                                 }

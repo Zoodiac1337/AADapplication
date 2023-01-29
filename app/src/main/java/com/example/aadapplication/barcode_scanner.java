@@ -4,6 +4,7 @@ import android.Manifest;
 
 import android.content.pm.PackageManager;
 
+import android.graphics.ImageFormat;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,19 +31,27 @@ import com.google.mlkit.vision.common.InputImage;
 
 
 
+
 import java.io.IOException;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 
 public class barcode_scanner extends AppCompatActivity {
 
     private SurfaceView cameraView;
+    private android.hardware.Camera camera;
     private BarcodeScanner barcodeScanner;
+
 
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private ToneGenerator toneGen1;
     private TextView barcodeText;
     private String barcodeData;
+
+    private ByteBuffer byteBuffer;
+
+    private boolean stopScanning = false;
 
 
 
@@ -60,7 +69,7 @@ public class barcode_scanner extends AppCompatActivity {
         // Initialize the barcode scanner
         BarcodeScannerOptions options =
                 new BarcodeScannerOptions.Builder()
-                        .setBarcodeFormats(Barcode.FORMAT_EAN_8)
+                        .setBarcodeFormats(Barcode.FORMAT_EAN_13)
                         .build();
         barcodeScanner = BarcodeScanning.getClient(options);
 
@@ -85,12 +94,33 @@ public class barcode_scanner extends AppCompatActivity {
                                 Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                             // Start camera preview
                             cameraView.getHolder().setKeepScreenOn(true);
-                            android.hardware.Camera camera =
-                                    android.hardware.Camera.open();
+                            camera = android.hardware.Camera.open();
+                            android.hardware.Camera.Parameters parameters = camera.getParameters();
+                            camera.setDisplayOrientation(90);
+
+                            parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+                            camera.setParameters(parameters);
                             camera.setPreviewDisplay(holder);
-                            camera.setPreviewCallback(new android.hardware.Camera.PreviewCallback() {
+                            // Get the preview frame size
+                            android.hardware.Camera.Size size = parameters.getPreviewSize();
+
+                            // Create a ByteBuffer for the preview frame data
+                            int length = size.width * size.height * ImageFormat.getBitsPerPixel(parameters.getPreviewFormat()) / 8;
+                            byteBuffer = ByteBuffer.allocate(length);
+                            // Set the ByteBuffer as the data for the camera preview callback
+                            camera.addCallbackBuffer(byteBuffer.array());
+
+
+                            camera.setPreviewCallbackWithBuffer(new android.hardware.Camera.PreviewCallback() {
+
                                 @Override
                                 public void onPreviewFrame(byte[] data, android.hardware.Camera camera) {
+
+                                    // Check if scanning should stop
+                                    if (stopScanning) {
+                                        return;
+                                    }
+
                                     // Convert the preview frame data into an InputImage
                                     android.hardware.Camera.Size size = camera.getParameters().getPreviewSize();
                                     InputImage image = InputImage.fromByteArray(data, size.width, size.height, 0,InputImage.IMAGE_FORMAT_NV21);
@@ -100,13 +130,29 @@ public class barcode_scanner extends AppCompatActivity {
 
 
 
+
+
                                     result.addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
+
                                                                     @Override
                                                                     public void onSuccess(List<Barcode> barcodes) {
 
                                                                         if(barcodes.size()>0) {
 
+                                                                            //set stopscanning to true stops multiple
+                                                                            // frames being called at once
+                                                                            if(stopScanning){return;}
+                                                                            else{
+                                                                                stopScanning=true;
+                                                                            }
+
                                                                             //pause camera
+                                                                            camera.stopPreview();
+
+
+
+
+
 
                                                                             System.out.println(barcodes.size());
                                                                             Barcode barcode = barcodes.get(0);
@@ -120,22 +166,31 @@ public class barcode_scanner extends AppCompatActivity {
 
 
 
-                                                                            System.out.println("Barcode Scanner"+barcode.getRawBytes() +" "+barcode.getCalendarEvent()+""
-                                                                                    + barcode.getDisplayValue()+"Barcode value: " + barcode.getValueType());
+                                                                            System.out.println("Barcode Scanner"+barcode.getFormat()+""
+                                                                                    + barcode.getDisplayValue()+"Barcode value: ");
 
                                                                         }
+
+
+
                                                                     }
-                                                                }
-                                    );
+
+                                                                });
+
                                     result.addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
 
                                             Log.e("Barcode Scanner", "Error scanning barcode: " + e.getMessage());
                                         }
+
+
                                     });
+                                    // Add the ByteBuffer back to the camera for reuse
+                                    camera.addCallbackBuffer(byteBuffer.array());
                                 }
                             });
+
                             camera.startPreview();
                         }
                     } catch (IOException e) {
@@ -145,6 +200,7 @@ public class barcode_scanner extends AppCompatActivity {
 
                 @Override
                 public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
                 }
 
                 @Override
@@ -164,7 +220,17 @@ public class barcode_scanner extends AppCompatActivity {
             }
         }
     }
+
+
+
+    private void resumePreview(){
+
+
+    }
+
+
 }
+
 
 
 

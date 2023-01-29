@@ -37,6 +37,12 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class barcode_scanner extends AppCompatActivity {
 
     private SurfaceView cameraView;
@@ -162,8 +168,11 @@ public class barcode_scanner extends AppCompatActivity {
                                                                             //call api https://openfoodfacts.github.io/api-documentation/
                                                                             //if product found use this information
                                                                             //if product not found prompt to add to database
-
-
+                                                                            try{
+                                                                            apigetter(barcode.getRawValue());} catch (
+                                                                                    Exception e) {
+                                                                                throw new RuntimeException(e);
+                                                                            }
 
 
                                                                             System.out.println("Barcode Scanner"+barcode.getFormat()+""
@@ -221,7 +230,28 @@ public class barcode_scanner extends AppCompatActivity {
         }
     }
 
+    private void apigetter(String code){
 
+
+        //call api https://openfoodfacts.github.io/api-documentation/
+        //if product found use this information
+        //if product not found prompt to add to database
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create(mediaType, "");
+        Request request = new Request.Builder()
+                .url("https://world.openfoodfacts.org/api/v2/product/"+code+"?fields=product_name")
+                .method("GET", body)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+        } catch (
+                IOException e) {
+            throw new RuntimeException(e);
+        }
+        //convert json into java object and extract productname data
+    }
 
     private void resumePreview(){
 

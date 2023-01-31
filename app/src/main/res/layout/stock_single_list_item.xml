@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/ItemName"
+        android:text="Item Name"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:id="@+id/Date1"
+        android:text="Date1"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ItemName"
+        android:layout_toEndOf="@+id/ItemName"
+        />
+    <TextView
+        android:id="@+id/Quantity"
+        android:text="Quantity"
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ItemName"
+        android:layout_alignLeft="@+id/ItemName"
+        android:layout_alignStart="@+id/ItemName"
+        />
+    <TextView
+        android:id="@+id/Date2"
+        android:text="Date2"
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Date1"
+        android:layout_alignLeft="@+id/Date1"
+        android:layout_alignStart="@+id/Date1"
+        />
+
+
+</RelativeLayout>

@@ -24,4 +24,8 @@ public class headChefActivity extends AppCompatActivity {
         startActivity(new Intent(headChefActivity.this, checkStockActivity.class));
     }
 
+    public void userAccessButton(View view) {
+        startActivity(new Intent(headChefActivity.this, userAccessActivity.class));
+    }
+
 }

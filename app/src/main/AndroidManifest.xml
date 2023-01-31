@@ -16,6 +16,13 @@
         android:theme="@style/Theme.AADapplication"
         tools:targetApi="31">
         <activity
+            android:name=".userAccessActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".checkStockActivity"
             android:exported="false">
             <meta-data

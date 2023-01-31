@@ -1,52 +1,35 @@
 package com.example.aadapplication;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.ImageFormat;
+import android.media.ToneGenerator;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import android.Manifest;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-        import android.content.pm.PackageManager;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.mlkit.vision.barcode.BarcodeScanner;
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
+import com.google.mlkit.vision.barcode.BarcodeScanning;
+import com.google.mlkit.vision.barcode.common.Barcode;
+import com.google.mlkit.vision.common.InputImage;
 
-        import android.graphics.ImageFormat;
-        import android.media.ToneGenerator;
-        import android.os.Bundle;
-        import android.util.Log;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.List;
 
-        import android.view.SurfaceHolder;
-        import android.view.SurfaceView;
-        import android.widget.TextView;
-
-
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.core.app.ActivityCompat;
-
-        import com.google.android.gms.tasks.OnFailureListener;
-        import com.google.android.gms.tasks.OnSuccessListener;
-        import com.google.android.gms.tasks.Task;
-
-
-        import com.google.gson.Gson;
-        import com.google.gson.GsonBuilder;
-        import com.google.mlkit.vision.barcode.BarcodeScanner;
-        import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
-        import com.google.mlkit.vision.barcode.BarcodeScanning;
-        import com.google.mlkit.vision.barcode.common.Barcode;
-        import com.google.mlkit.vision.common.InputImage;
-
-
-        import java.io.BufferedReader;
-        import java.io.IOException;
-
-        import java.io.InputStream;
-        import java.io.InputStreamReader;
-        import java.nio.ByteBuffer;
-        import java.util.List;
-
-        import JsontoJava.BarcodeObject;
-        import okhttp3.MediaType;
-        import okhttp3.OkHttpClient;
-        import okhttp3.Request;
-        import okhttp3.RequestBody;
-        import okhttp3.Response;
+import JsontoJava.BarcodeObject;
 
 public class QR_scanner extends AppCompatActivity {
 
@@ -56,41 +39,33 @@ public class QR_scanner extends AppCompatActivity {
 
 
     private static final int REQUEST_CAMERA_PERMISSION = 201;
-    private ToneGenerator toneGen1;
-    private TextView barcodeText;
-    private String barcodeData;
 
     private ByteBuffer byteBuffer;
-
+    private String barcodeData = "";
 
     private boolean stopScanning = false;
     private BarcodeObject barinfo;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_barcode_insert);
+        setContentView(R.layout.activity_scan_bar_code);
         //toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         //surfaceView = findViewById(R.id.surface_view);
-        barcodeText = findViewById(R.id.barcode_text);
         //initialiseDetectorsAndSources();
 
         cameraView = findViewById(R.id.surface_view);
 
         // Initialize the barcode scanner
-        BarcodeScannerOptions options =
-                new BarcodeScannerOptions.Builder()
-                        .setBarcodeFormats(Barcode.FORMAT_EAN_13)
-                        .build();
+        BarcodeScannerOptions options = new BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_QR_CODE).build();
         barcodeScanner = BarcodeScanning.getClient(options);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             // Request camera permission
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                    REQUEST_CAMERA_PERMISSION);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
         } else {
             // Camera permission already granted, start camera preview
             startCameraPreview();
@@ -103,8 +78,7 @@ public class QR_scanner extends AppCompatActivity {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (ActivityCompat.checkSelfPermission(QR_scanner.this,
-                            Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(QR_scanner.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         // Start camera preview
                         cameraView.getHolder().setKeepScreenOn(true);
                         camera = android.hardware.Camera.open();
@@ -136,13 +110,10 @@ public class QR_scanner extends AppCompatActivity {
 
                                 // Convert the preview frame data into an InputImage
                                 android.hardware.Camera.Size size = camera.getParameters().getPreviewSize();
-                                InputImage image = InputImage.fromByteArray(data, size.width, size.height, 0,InputImage.IMAGE_FORMAT_NV21);
+                                InputImage image = InputImage.fromByteArray(data, size.width, size.height, 0, InputImage.IMAGE_FORMAT_NV21);
 
                                 // Pass the InputImage to the barcode scanner
                                 Task<List<Barcode>> result = barcodeScanner.process(image);
-
-
-
 
 
                                 result.addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
@@ -150,13 +121,14 @@ public class QR_scanner extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(List<Barcode> barcodes) {
 
-                                        if(barcodes.size()>0) {
+                                        if (barcodes.size() > 0) {
 
                                             //set stopscanning to true stops multiple
                                             // frames being called at once
-                                            if(stopScanning){return;}
-                                            else{
-                                                stopScanning=true;
+                                            if (stopScanning) {
+                                                return;
+                                            } else {
+                                                stopScanning = true;
                                             }
 
                                             //toneGen1.startTone(,2);
@@ -166,12 +138,19 @@ public class QR_scanner extends AppCompatActivity {
 
                                             System.out.println(barcodes.size());
                                             Barcode barcode = barcodes.get(0);
-                                            barcodeText.setText(barcode.getRawValue());
-                                            System.out.println("Barcode Scanner"+barcode.getFormat()+""
-                                                    + barcode.getDisplayValue()+"Barcode value: ");
+//                                            barcodeText.setText(barcode.getRawValue());
+
+                                            barcodeData = barcode.getRawValue();
+                                            Intent intent = new Intent();
+                                            intent.putExtra("fridgeID", barcodeData);
+                                            setResult(RESULT_OK, intent);
+                                            finish();
+
+
+
+                                            System.out.println("Barcode Scanner" + barcode.getFormat() + "" + barcode.getDisplayValue() + "Barcode value: ");
 
                                         }
-
 
 
                                     }
@@ -223,7 +202,7 @@ public class QR_scanner extends AppCompatActivity {
     }
 
 
-    private void resumePreview(){
+    private void resumePreview() {
 
 
     }

@@ -11,6 +11,7 @@ import android.util.Log;
 
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -37,10 +38,15 @@ import java.io.IOException;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.List;
 
 import JsontoJava.BarcodeObject;
+import Rest.GetProduct;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -57,6 +63,7 @@ public class barcode_scanner extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private ToneGenerator toneGen1;
     private TextView barcodeText;
+    private EditText ProductNameField;
     private String barcodeData;
 
     private ByteBuffer byteBuffer;
@@ -74,6 +81,7 @@ public class barcode_scanner extends AppCompatActivity {
         //toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         //surfaceView = findViewById(R.id.surface_view);
         barcodeText = findViewById(R.id.barcode_text);
+        ProductNameField = findViewById(R.id.ProductNameField);
         //initialiseDetectorsAndSources();
 
         cameraView = findViewById(R.id.surface_view);
@@ -176,11 +184,9 @@ public class barcode_scanner extends AppCompatActivity {
                                                                             //call api https://openfoodfacts.github.io/api-documentation/
                                                                             //if product found use this information
                                                                             //if product not found prompt to add to database
-                                                                            try{
-                                                                            apigetter(barcode.getRawValue());} catch (
-                                                                                    Exception e) {
-                                                                                throw new RuntimeException(e);
-                                                                            }
+
+                                                                                apigetter("");
+
 
 
                                                                             System.out.println("Barcode Scanner"+barcode.getFormat()+""
@@ -244,29 +250,9 @@ public class barcode_scanner extends AppCompatActivity {
         //call api https://openfoodfacts.github.io/api-documentation/
         //if product found use this information
         //if product not found prompt to add to database
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        MediaType mediaType = MediaType.parse("text/plain");
-        RequestBody body = RequestBody.create(mediaType, "");
-        Request request = new Request.Builder()
-                .url("https://world.openfoodfacts.org/api/v2/product/"+code+"?fields=product_name")
-                .method("GET", body)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-
-
-            //convert json into java object and extract productname data
-            // Read the JSON from file
-
-            System.out.println(response.body());
-
-
-
-        } catch (
-                IOException e) {
-            throw new RuntimeException(e);
-        }
+        GetProduct prod= new GetProduct(this,ProductNameField);
+        prod.execute("https://world.openfoodfacts.org/api/v2/product/4100290024758?fields=product_name");
+        System.out.println("result->"+prod.results);
 
     }
 

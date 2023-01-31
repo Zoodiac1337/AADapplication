@@ -7,8 +7,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.Date;
-
 public class checkStockActivity extends AppCompatActivity {
 
     int[] quantity = {1, 5, 4, 23};
@@ -20,7 +18,7 @@ public class checkStockActivity extends AppCompatActivity {
 
     ListView lView;
 
-    StockListAdapter lAdapter;
+    ListAdapterStock lAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +27,7 @@ public class checkStockActivity extends AppCompatActivity {
 
         lView = (ListView) findViewById(R.id.androidList);
 
-        lAdapter = new StockListAdapter(checkStockActivity.this, name, quantity, date1, date2);
+        lAdapter = new ListAdapterStock(checkStockActivity.this, name, quantity, date1, date2);
 
         lView.setAdapter(lAdapter);
 

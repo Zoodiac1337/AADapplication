@@ -7,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class StockListAdapter extends BaseAdapter{
+public class ListAdapterStock extends BaseAdapter{
     Context context;
     private final String [] name;
     private final int [] quantity;
     private final String[] date1;
     private final String[] date2;
 
-    public StockListAdapter(Context context, String [] names, int [] quantities, String [] date1, String [] date2){
+    public ListAdapterStock(Context context, String [] names, int [] quantities, String [] date1, String [] date2){
         //super(context, R.layout.single_list_app_item, utilsArrayList);
         this.context = context;
         this.name = names;
@@ -49,7 +49,7 @@ public class StockListAdapter extends BaseAdapter{
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.stock_single_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.single_list_item_stock, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.ItemName);
             viewHolder.intQuantity = (TextView) convertView.findViewById(R.id.Quantity);
             viewHolder.txtDate1 = (TextView) convertView.findViewById(R.id.Date1);

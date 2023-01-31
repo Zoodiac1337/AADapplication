@@ -30,6 +30,7 @@
                 android:value="" />
         </activity>
         <activity android:name=".barcode_scanner" />
+        <activity android:name=".QR_scanner" />
         <activity
             android:name=".manualInsertActivity"
             android:exported="false">

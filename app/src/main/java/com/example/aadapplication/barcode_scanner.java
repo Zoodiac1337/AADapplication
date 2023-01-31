@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
@@ -30,13 +32,15 @@ import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 
 
-
-
+import java.io.BufferedReader;
 import java.io.IOException;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.util.List;
 
+import JsontoJava.BarcodeObject;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -57,7 +61,9 @@ public class barcode_scanner extends AppCompatActivity {
 
     private ByteBuffer byteBuffer;
 
+
     private boolean stopScanning = false;
+    private BarcodeObject barinfo;
 
 
 
@@ -151,6 +157,8 @@ public class barcode_scanner extends AppCompatActivity {
                                                                             else{
                                                                                 stopScanning=true;
                                                                             }
+
+                                                                            //toneGen1.startTone(,2);
 
                                                                             //pause camera
                                                                             camera.stopPreview();
@@ -246,11 +254,20 @@ public class barcode_scanner extends AppCompatActivity {
                 .build();
         try {
             Response response = client.newCall(request).execute();
+
+
+            //convert json into java object and extract productname data
+            // Read the JSON from file
+
+            System.out.println(response.body());
+
+
+
         } catch (
                 IOException e) {
             throw new RuntimeException(e);
         }
-        //convert json into java object and extract productname data
+
     }
 
     private void resumePreview(){

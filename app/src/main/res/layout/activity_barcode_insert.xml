@@ -21,19 +21,20 @@ tools:context=".barcode_scanner">
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:padding="5dp"
-        android:text="Barcode Text"
+        android:hint="Barcode Text"
         android:textAlignment="center"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/StartScan" />
+        app:layout_constraintTop_toBottomOf="@+id/ReScan" />
 
     <Button
-        android:id="@+id/StartScan"
+        android:id="@+id/ReScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scan"
+        android:onClick="resumePreview"
+        android:text="ReScan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/surface_view" />
@@ -80,10 +81,11 @@ tools:context=".barcode_scanner">
         tools:textAlignment="center" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/AddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
+        android:onClick="addItems"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/QuanityField" />
@@ -99,6 +101,6 @@ tools:context=".barcode_scanner">
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/AddItem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

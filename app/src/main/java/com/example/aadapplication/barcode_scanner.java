@@ -11,8 +11,12 @@ import android.util.Log;
 
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -24,8 +28,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
@@ -33,25 +39,21 @@ import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+
 import java.nio.ByteBuffer;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import JsontoJava.BarcodeObject;
 import Rest.GetProduct;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+
 
 public class barcode_scanner extends AppCompatActivity {
 
@@ -64,6 +66,13 @@ public class barcode_scanner extends AppCompatActivity {
     private ToneGenerator toneGen1;
     private TextView barcodeText;
     private EditText ProductNameField;
+
+    private EditText QuanityField;
+
+    private EditText ExpiryDateField;
+
+
+
     private String barcodeData;
 
     private ByteBuffer byteBuffer;
@@ -119,7 +128,9 @@ public class barcode_scanner extends AppCompatActivity {
                             camera.setDisplayOrientation(90);
 
                             parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
-                            camera.setParameters(parameters);
+                            try{
+                            camera.setParameters(parameters);} catch (Exception ignored) {}
+
                             camera.setPreviewDisplay(holder);
                             // Get the preview frame size
                             android.hardware.Camera.Size size = parameters.getPreviewSize();
@@ -256,12 +267,100 @@ public class barcode_scanner extends AppCompatActivity {
 
     }
 
-    private void resumePreview(){
+    public void resumePreview(View view){
+        startCameraPreview();
 
 
     }
 
 
+
+    public void addItems(View view) {
+        //check all fields are valid
+        barcodeText = findViewById(R.id.barcode_text);
+        ProductNameField = findViewById(R.id.ProductNameField);
+        ExpiryDateField = findViewById(R.id.ExpiryDateField);
+        QuanityField = findViewById(R.id.QuanityField);
+
+        //barcode check
+        if (!(barcodeText.getText().length() >1) ||barcodeText.getText().toString().contains(" ")){
+            Toast.makeText(this, "no barcode scanned", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //ProductNameField
+        if(!(ProductNameField.getText().length()>1)){
+            Toast.makeText(this, "no productname", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //check qauntity
+        try {
+            int qauntity = Integer.parseInt(QuanityField.getText().toString());
+            if (qauntity<1){
+                Toast.makeText(this, "quantity to low", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        catch (Exception e) {
+            Toast.makeText(this, "invalid quantity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //check date
+
+        String date =ExpiryDateField.getText().toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+        Date dateObject = null;
+        dateFormat.setLenient(false);
+        try {
+            dateObject=dateFormat.parse(date);
+
+        }  catch (ParseException e) {
+            Toast.makeText(this,"invalid date format",Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+        //initialize firebase
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String field=barcodeText.getText().toString();
+        CollectionReference collection = db.collection("/Fridges/12345/Items/"+field+"/Items");
+        Map<String, Object> data = new HashMap<>();
+        data.put("ExpiryDate", dateObject);
+        data.put("InsertedOn", Timestamp.now());
+        data.put("Insertedby","test");
+
+        collection.add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("error");
+
+                    }
+                });
+
+
+
+
+
+
+
+        //add values to list view of recently added
+        ListView items;
+        items=findViewById(R.id.AddedValues);
+        ArrayList<Object> entries = new ArrayList<>();
+        ArrayAdapter<Object> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, entries);
+        items.setAdapter(adapter);
+
+        // Add items to the list
+        entries.add(ProductNameField.getText().toString()+" expires:"+ExpiryDateField.getText().toString());
+        adapter.notifyDataSetChanged();
+
+    }
 }
 
 

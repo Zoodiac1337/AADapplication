@@ -72,8 +72,12 @@ public class GetProduct extends AsyncTask<String, Void, String> {
 
             Gson gson = new Gson();
             BarcodeObject obj = gson.fromJson(result, BarcodeObject.class);
-            System.out.println(obj.getProduct().getProductName());
-            editText.setText(obj.getProduct().getProductName());
+            if (obj.getStatus()==1){
+                editText.setText(obj.getProduct().getProductName());
+            }
+            else{
+                Toast.makeText(context, "no product found enter name manually", Toast.LENGTH_SHORT).show();
+            }
 
         }
 

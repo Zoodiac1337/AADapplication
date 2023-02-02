@@ -32,6 +32,7 @@
             android:id="@+id/HCRemoveItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="removeItemButton"
             android:text="Remove an item (scan a bar code)" />
 
         <Space

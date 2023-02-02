@@ -2,19 +2,21 @@ package com.example.aadapplication;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.widget.TextView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.Date;
 
 public class ListAdapterStock extends BaseAdapter{
     Context context;
     private final String [] name;
     private final int [] quantity;
-    private final String[] date1;
-    private final String[] date2;
+    private final Date[] date1;
+    private final Date[] date2;
 
-    public ListAdapterStock(Context context, String [] names, int [] quantities, String [] date1, String [] date2){
+    public ListAdapterStock(Context context, String [] names, int [] quantities, Date[] date1, Date [] date2){
         //super(context, R.layout.single_list_app_item, utilsArrayList);
         this.context = context;
         this.name = names;

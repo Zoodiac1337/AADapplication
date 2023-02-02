@@ -57,9 +57,7 @@ public class userAccessActivity extends AppCompatActivity {
                 lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                         Toast.makeText(userAccessActivity.this, names[i]+" "+emails[i], Toast.LENGTH_SHORT).show();
-
                     }
                 });
             }

@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
@@ -80,6 +81,7 @@ public class barcode_scanner extends AppCompatActivity {
 
     private boolean stopScanning = false;
     private BarcodeObject barinfo;
+    private int quant;
 
 
 
@@ -196,7 +198,7 @@ public class barcode_scanner extends AppCompatActivity {
                                                                             //if product found use this information
                                                                             //if product not found prompt to add to database
 
-                                                                                apigetter("");
+                                                                                apigetter(barcodeText.getText().toString());
 
 
 
@@ -262,14 +264,13 @@ public class barcode_scanner extends AppCompatActivity {
         //if product found use this information
         //if product not found prompt to add to database
         GetProduct prod= new GetProduct(this,ProductNameField);
-        prod.execute("https://world.openfoodfacts.org/api/v2/product/4100290024758?fields=product_name");
+        prod.execute("https://world.openfoodfacts.org/api/v2/product/"+code+"?fields=product_name");
         System.out.println("result->"+prod.results);
-
     }
 
     public void resumePreview(View view){
-        startCameraPreview();
-
+        stopScanning=false;
+        camera.startPreview();
 
     }
 
@@ -292,10 +293,11 @@ public class barcode_scanner extends AppCompatActivity {
             Toast.makeText(this, "no productname", Toast.LENGTH_SHORT).show();
             return;
         }
-        //check qauntity
+        //check quantity
+        int quantity=0;
         try {
-            int qauntity = Integer.parseInt(QuanityField.getText().toString());
-            if (qauntity<1){
+            quantity = Integer.parseInt(QuanityField.getText().toString());
+            if (quantity<1){
                 Toast.makeText(this, "quantity to low", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -315,6 +317,7 @@ public class barcode_scanner extends AppCompatActivity {
 
         }  catch (ParseException e) {
             Toast.makeText(this,"invalid date format",Toast.LENGTH_SHORT).show();
+            return;
         }
 
 
@@ -324,29 +327,30 @@ public class barcode_scanner extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String field=barcodeText.getText().toString();
         CollectionReference collection = db.collection("/Fridges/12345/Items/"+field+"/Items");
-        Map<String, Object> data = new HashMap<>();
-        data.put("ExpiryDate", dateObject);
-        data.put("InsertedOn", Timestamp.now());
-        data.put("Insertedby","test");
-
-        collection.add(data)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println("error");
-
-                    }
-                });
+        DocumentReference documentReference= db.document("/Fridges/12345/Items/"+field);
 
 
 
 
+        for(int i = 0; i != quantity; i++){
 
+            Map<String, Object> data = new HashMap<>();
+            data.put("ExpiryDate", dateObject);
+            data.put("InsertedOn", Timestamp.now());
+            data.put("Insertedby","test");
+
+            collection.add(data);
+        }
+
+        Map<String, Object> barcodedata = new HashMap<>();
+        barcodedata.put("Name",ProductNameField.getText().toString() );
+        barcodedata.put("ModifiedOn", Timestamp.now());
+        barcodedata.put("Quantity", FieldValue.increment(quantity));
+        documentReference.update(barcodedata);
+
+
+
+        //make list persist and write to text document
 
 
         //add values to list view of recently added
@@ -357,7 +361,7 @@ public class barcode_scanner extends AppCompatActivity {
         items.setAdapter(adapter);
 
         // Add items to the list
-        entries.add(ProductNameField.getText().toString()+" expires:"+ExpiryDateField.getText().toString());
+        entries.add(quantity+"X "+ProductNameField.getText().toString()+" expires:"+ExpiryDateField.getText().toString());
         adapter.notifyDataSetChanged();
 
     }

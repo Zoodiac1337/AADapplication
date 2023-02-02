@@ -28,4 +28,7 @@ public class headChefActivity extends AppCompatActivity {
         startActivity(new Intent(headChefActivity.this, userAccessActivity.class));
     }
 
+    public void removeItemButton(View view) {
+        startActivity(new Intent(headChefActivity.this, Remove_barcode_scanner.class));
+    }
 }

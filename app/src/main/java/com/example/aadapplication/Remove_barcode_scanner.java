@@ -370,8 +370,10 @@ public class Remove_barcode_scanner extends AppCompatActivity {
                     documentSnapshot.getReference().delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-
-
+                            DocumentReference newref=db.document("/Fridges/12345/Items/" + field);
+                            Map<String, Object> qdata = new HashMap<>();
+                            qdata.put("Quantity",FieldValue.increment(-1) );
+                            newref.update(qdata);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

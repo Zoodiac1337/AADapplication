@@ -349,15 +349,23 @@ public class barcode_scanner extends AppCompatActivity {
         barcodedata.put("ModifiedOn", Timestamp.now());
         barcodedata.put("Quantity", FieldValue.increment(quantity));
 
+        Date finalDateObject = dateObject;
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        if (finalDateObject.after(document.getDate("Last to expire")))
+                            barcodedata.put("Last to expire", finalDateObject);
+                        else if (finalDateObject.before(document.getDate("First to expire")))
+                            barcodedata.put("First to expire", finalDateObject);
                         documentReference.update(barcodedata);
-                    } else
+                    } else {
+                        barcodedata.put("First to expire", finalDateObject);
+                        barcodedata.put("Last to expire", finalDateObject);
                         documentReference.set(barcodedata);
+                    }
                 }
             }
         });

@@ -1,8 +1,5 @@
 package com.example.aadapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,10 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -51,7 +49,7 @@ public class chooseFridgeActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         Bundle bundle = getIntent().getExtras();
-        email = bundle.getString("message");
+        email = bundle.getString("email");
 
         SharedPreferences savedFridges = getApplicationContext().getSharedPreferences(email, 0);
         Map<String, ?> allFridges = savedFridges.getAll();
@@ -113,15 +111,21 @@ public class chooseFridgeActivity extends AppCompatActivity {
                                 Toast.makeText(chooseFridgeActivity.this, "Account Type: " + document.getString("Type"), Toast.LENGTH_SHORT).show();
                                 if (document.getString("Type").equals("HeadChef")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, headChefActivity.class);
-                                    myIntent.putExtra("message", email);
+                                    myIntent.putExtra("email", email);
+                                    myIntent.putExtra("name", document.getString("Name"));
+                                    myIntent.putExtra("fridgeID", position);
                                     startActivity(myIntent);
                                 } else if (document.getString("Type").equals("Chef")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, chefActivity.class);
-                                    myIntent.putExtra("message", email);
+                                    myIntent.putExtra("email", email);
+                                    myIntent.putExtra("name", document.getString("Name"));
+                                    myIntent.putExtra("fridgeID", position);
                                     startActivity(myIntent);
                                 } else if (document.getString("Type").equals("DeliveryDriver")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, deliveryDriverActivity.class);
-                                    myIntent.putExtra("message", email);
+                                    myIntent.putExtra("email", email);
+                                    myIntent.putExtra("name", document.getString("Name"));
+                                    myIntent.putExtra("fridgeID", position);
                                     startActivity(myIntent);
                                 }
 

@@ -1,68 +1,58 @@
 package com.example.aadapplication;
 
-        import android.Manifest;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.ImageFormat;
+import android.media.ToneGenerator;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import android.content.pm.PackageManager;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-        import android.graphics.ImageFormat;
-        import android.media.ToneGenerator;
-        import android.os.Bundle;
-        import android.util.Log;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.mlkit.vision.barcode.BarcodeScanner;
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
+import com.google.mlkit.vision.barcode.BarcodeScanning;
+import com.google.mlkit.vision.barcode.common.Barcode;
+import com.google.mlkit.vision.common.InputImage;
 
-        import android.view.SurfaceHolder;
-        import android.view.SurfaceView;
-        import android.view.View;
-        import android.widget.ArrayAdapter;
-        import android.widget.EditText;
-        import android.widget.ListView;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.core.app.ActivityCompat;
-
-        import com.google.android.gms.tasks.OnCompleteListener;
-        import com.google.android.gms.tasks.OnFailureListener;
-        import com.google.android.gms.tasks.OnSuccessListener;
-        import com.google.android.gms.tasks.Task;
-
-
-        import com.google.firebase.Timestamp;
-        import com.google.firebase.firestore.CollectionReference;
-        import com.google.firebase.firestore.DocumentReference;
-        import com.google.firebase.firestore.DocumentSnapshot;
-        import com.google.firebase.firestore.FieldValue;
-        import com.google.firebase.firestore.FirebaseFirestore;
-        import com.google.firebase.firestore.Query;
-        import com.google.firebase.firestore.QuerySnapshot;
-        import com.google.mlkit.vision.barcode.BarcodeScanner;
-        import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
-        import com.google.mlkit.vision.barcode.BarcodeScanning;
-        import com.google.mlkit.vision.barcode.common.Barcode;
-        import com.google.mlkit.vision.common.InputImage;
-
-
-        import java.io.IOException;
-
-
-        import java.nio.ByteBuffer;
-        import java.text.ParseException;
-        import java.text.SimpleDateFormat;
-        import java.util.ArrayList;
-        import java.util.Date;
-        import java.util.HashMap;
-        import java.util.List;
-        import java.util.Map;
-
-        import JsontoJava.BarcodeObject;
-        import Rest.GetProduct;
+import JsontoJava.BarcodeObject;
 
 
 
 
 public class Remove_barcode_scanner extends AppCompatActivity {
+
 
     private SurfaceView cameraView;
     private android.hardware.Camera camera;
@@ -79,6 +69,8 @@ public class Remove_barcode_scanner extends AppCompatActivity {
     private EditText ExpiryDateField;
 
 
+    private String fridgeID;
+    private String name;
 
     private String barcodeData;
 
@@ -95,6 +87,11 @@ public class Remove_barcode_scanner extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remove_barcode_scanner);
+
+        Bundle bundle = getIntent().getExtras();
+        fridgeID = bundle.getString("fridgeID");
+        name = bundle.getString("name");
+
         //toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         //surfaceView = findViewById(R.id.surface_view);
         barcodeText = findViewById(R.id.barcode_text_remove);
@@ -270,7 +267,7 @@ public class Remove_barcode_scanner extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         System.out.println(field);
 
-        DocumentReference docRef = db.document("/Fridges/12345/Items/" + field);
+        DocumentReference docRef = db.document("/Fridges/"+fridgeID+"/Items/" + field);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -344,7 +341,7 @@ public class Remove_barcode_scanner extends AppCompatActivity {
         //initialize firebase
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String field = barcodeText.getText().toString();
-        CollectionReference collection = db.collection("/Fridges/12345/Items/" + field + "/Items");
+        CollectionReference collection = db.collection("/Fridges/"+fridgeID+"/Items/" + field + "/Items");
         String d =ExpiryDateField.getText().toString();
         SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
         Date dO = null;
@@ -370,9 +367,9 @@ public class Remove_barcode_scanner extends AppCompatActivity {
                     documentSnapshot.getReference().delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            DocumentReference newref=db.document("/Fridges/12345/Items/" + field);
+                            DocumentReference newref=db.document("/Fridges/"+fridgeID+"/Items/" + field);
                             Map<String, Object> qdata = new HashMap<>();
-                            qdata.put("Quantity",FieldValue.increment(-1) );
+                            qdata.put("Quantity", FieldValue.increment(-1) );
                             newref.update(qdata);
                         }
                     }).addOnFailureListener(new OnFailureListener() {

@@ -20,13 +20,18 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class userAccessActivity extends AppCompatActivity {
 
+    private String fridgeID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_stock);
 
+        Bundle bundle = getIntent().getExtras();
+        fridgeID = bundle.getString("fridgeID");
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Fridges/12345/Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Fridges/"+fridgeID+"/Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 String[] emails = new String[task.getResult().size()];

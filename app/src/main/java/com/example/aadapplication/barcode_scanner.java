@@ -60,6 +60,9 @@ import Rest.GetProduct;
 
 public class barcode_scanner extends AppCompatActivity {
 
+    private String fridgeID;
+    private String name;
+
     private SurfaceView cameraView;
     private android.hardware.Camera camera;
     private BarcodeScanner barcodeScanner;
@@ -91,6 +94,11 @@ public class barcode_scanner extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_insert);
+
+        Bundle bundle = getIntent().getExtras();
+        name = bundle.getString("name");
+        fridgeID = bundle.getString("fridgeID");
+
         //toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         //surfaceView = findViewById(R.id.surface_view);
         barcodeText = findViewById(R.id.barcode_text);
@@ -328,8 +336,8 @@ public class barcode_scanner extends AppCompatActivity {
         //initialize firebase
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String field=barcodeText.getText().toString();
-        CollectionReference collection = db.collection("/Fridges/12345/Items/"+field+"/Items");
-        DocumentReference documentReference= db.document("/Fridges/12345/Items/"+field);
+        CollectionReference collection = db.collection("/Fridges/"+fridgeID+"/Items/"+field+"/Items");
+        DocumentReference documentReference= db.document("/Fridges/"+fridgeID+"/Items/"+field);
 
 
 
@@ -339,7 +347,7 @@ public class barcode_scanner extends AppCompatActivity {
             Map<String, Object> data = new HashMap<>();
             data.put("ExpiryDate", dateObject);
             data.put("InsertedOn", Timestamp.now());
-            data.put("Insertedby","test");
+            data.put("Insertedby",name);
 
             collection.add(data);
         }

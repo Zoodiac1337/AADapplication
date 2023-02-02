@@ -1,14 +1,14 @@
 package com.example.aadapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser != null){
             Intent myIntent = new Intent(MainActivity.this, chooseFridgeActivity.class);
             String email = currentUser.getEmail();
-            myIntent.putExtra("message", email);
+            myIntent.putExtra("email", email);
             startActivity(myIntent);
             Toast.makeText(MainActivity.this, email+" logged in", Toast.LENGTH_SHORT).show();
             finish();

@@ -22,20 +22,18 @@ import java.util.Date;
 
 public class checkStockActivity extends AppCompatActivity {
 
-    int[] quantity = {1, 5, 4, 23};
-    String[] name = {"Milk", "Eggs", "Beef meat patties", "Chicken strips"};
-    String[] c = {"14/04/2023", "02/02/2023", "17/03/2023", "31/01/2023"};
-    String[] date2 = {"18/04/2023", "08/02/2023", "28/03/2023", "07/02/2023"};
-
-
+    private String fridgeID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_stock);
 
+        Bundle bundle = getIntent().getExtras();
+        fridgeID = bundle.getString("fridgeID");
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Fridges/12345/Items").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Fridges/"+fridgeID+"/Items").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 int[] quantity = new int[task.getResult().size()];

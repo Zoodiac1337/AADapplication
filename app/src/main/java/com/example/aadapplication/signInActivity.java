@@ -37,7 +37,7 @@ public class signInActivity extends AppCompatActivity {
         if(currentUser != null){
             Intent myIntent = new Intent(signInActivity.this, chooseFridgeActivity.class);
             String email = currentUser.getEmail();
-            myIntent.putExtra("message", email);
+            myIntent.putExtra("email", email);
             startActivity(myIntent);
             Toast.makeText(signInActivity.this, email+" logged in", Toast.LENGTH_SHORT).show();
             finish();
@@ -52,7 +52,7 @@ public class signInActivity extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
 //                    Toast.makeText(SignInActivity.this, "Authentication successful, UID: "+uid, Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(signInActivity.this, chooseFridgeActivity.class);
-                    myIntent.putExtra("message", email);
+                    myIntent.putExtra("email", email);
                     startActivity(myIntent);
                     finish();
                     Toast.makeText(signInActivity.this, email+" logged in", Toast.LENGTH_SHORT).show();

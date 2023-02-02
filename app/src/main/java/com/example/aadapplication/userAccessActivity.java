@@ -1,41 +1,74 @@
 package com.example.aadapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class userAccessActivity extends AppCompatActivity {
-
-    String[] names = {"Pawel Wydra", "James Williams", "Will Smith"};
-    String[] emails = {"pawelx14@gmail.com", "pawelx140@gmail.com", "pawelx1404@gmail.com"};
-    String[] types = {"Head Chef", "Chef", "Delivery Driver"};
-    ListView lView;
-
-    ListAdapterAccess lAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_stock);
 
-        lView = (ListView) findViewById(R.id.androidList);
-
-        lAdapter = new ListAdapterAccess(userAccessActivity.this, names, emails, types);
-
-        lView.setAdapter(lAdapter);
-
-        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Fridges/12345/Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                String[] emails = new String[task.getResult().size()];
+                String[] types = new String[task.getResult().size()];
+                String[] names = new String[task.getResult().size()];
+                if (task.isSuccessful()) {
+                    int i = 0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        emails[i] = document.getId();
+                        types[i]=document.getString("Type");
+                        names[i]=document.getString("Name");
+                        i++;
+                    }
 
-                Toast.makeText(userAccessActivity.this, names[i]+" "+emails[i], Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+                ListView lView;
 
+                ListAdapterAccess lAdapter;
+
+                lView = (ListView) findViewById(R.id.androidList);
+
+                lAdapter = new ListAdapterAccess(userAccessActivity.this, names, emails, types);
+
+                lView.setAdapter(lAdapter);
+
+                lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        Toast.makeText(userAccessActivity.this, names[i]+" "+emails[i], Toast.LENGTH_SHORT).show();
+
+                    }
+                });
             }
         });
+
+
+
+
+
 
     }
 }

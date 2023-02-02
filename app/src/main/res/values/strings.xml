@@ -10,4 +10,5 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_insert_item_scanner">activity_insert_item_scanner</string>
+    <string name="title_activity_remove_barcode_scanner">Remove_barcode_scanner</string>
 </resources>

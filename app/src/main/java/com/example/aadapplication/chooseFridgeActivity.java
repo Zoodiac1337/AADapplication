@@ -113,19 +113,19 @@ public class chooseFridgeActivity extends AppCompatActivity {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, headChefActivity.class);
                                     myIntent.putExtra("email", email);
                                     myIntent.putExtra("name", document.getString("Name"));
-                                    myIntent.putExtra("fridgeID", position);
+                                    myIntent.putExtra("fridgeID", parent.getItemAtPosition(position).toString());
                                     startActivity(myIntent);
                                 } else if (document.getString("Type").equals("Chef")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, chefActivity.class);
                                     myIntent.putExtra("email", email);
                                     myIntent.putExtra("name", document.getString("Name"));
-                                    myIntent.putExtra("fridgeID", position);
+                                    myIntent.putExtra("fridgeID", parent.getItemAtPosition(position).toString());
                                     startActivity(myIntent);
                                 } else if (document.getString("Type").equals("DeliveryDriver")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, deliveryDriverActivity.class);
                                     myIntent.putExtra("email", email);
                                     myIntent.putExtra("name", document.getString("Name"));
-                                    myIntent.putExtra("fridgeID", position);
+                                    myIntent.putExtra("fridgeID", parent.getItemAtPosition(position).toString());
                                     startActivity(myIntent);
                                 }
 

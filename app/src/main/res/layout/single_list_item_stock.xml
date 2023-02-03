@@ -4,45 +4,46 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/ItemName"
-        android:text="Item Name"
+        android:id="@+id/Quantity"
+        android:text="Quantity"
         android:textSize="20sp"
         android:layout_marginTop="8dp"
         android:maxLines="1"
-        android:layout_width="190dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp" />
 
     <TextView
-        android:id="@+id/Date1"
-        android:text="Date1"
+        android:id="@+id/ItemName"
+        android:text="Item Name"
         android:textSize="20sp"
         android:layout_marginTop="8dp"
         android:maxLines="1"
-        android:layout_width="190dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ItemName"
-        android:layout_toEndOf="@+id/ItemName"
+        android:layout_toRightOf="@+id/Quantity"
+        android:layout_toEndOf="@+id/Quantity"
         />
+
     <TextView
-        android:id="@+id/Quantity"
-        android:text="Quantity"
+        android:id="@+id/Date1"
+        android:text="Date1"
         android:textSize="20sp"
         android:maxLines="1"
-        android:layout_width="190dp"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ItemName"
-        android:layout_alignLeft="@+id/ItemName"
-        android:layout_alignStart="@+id/ItemName"
+        android:layout_below="@+id/Quantity"
+        android:layout_alignLeft="@+id/Quantity"
+        android:layout_alignStart="@+id/Quantity"
         />
     <TextView
         android:id="@+id/Date2"
         android:text="Date2"
         android:textSize="20sp"
         android:maxLines="1"
-        android:layout_width="190dp"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Date1"
         android:layout_alignLeft="@+id/Date1"

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ListAdapterStock extends BaseAdapter{
@@ -65,10 +66,12 @@ public class ListAdapterStock extends BaseAdapter{
             result=convertView;
         }
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/YYYY");
+
         viewHolder.txtName.setText(name[position]);
-        viewHolder.intQuantity.setText("Quantity: "+ quantity[position]);
-        viewHolder.txtDate1.setText(date1[position]+"-");
-        viewHolder.txtDate2.setText("-"+date2[position]);
+        viewHolder.intQuantity.setText("#"+ quantity[position]+" ");
+        viewHolder.txtDate1.setText(sdf.format(date1[position])+"-");
+        viewHolder.txtDate2.setText(sdf.format(date2[position]));
 
         return convertView;
     }

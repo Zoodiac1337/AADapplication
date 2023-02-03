@@ -2,6 +2,7 @@ package com.example.aadapplication;
 
 import android.Manifest;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import android.graphics.ImageFormat;
@@ -260,7 +261,9 @@ public class barcode_scanner extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startCameraPreview();
+                Intent myIntent = new Intent(barcode_scanner.this, barcode_scanner.class);
+                startActivity(myIntent);
+                finish();
             } else {
                 Log.e("Barcode Scanner", "Camera permission denied");
             }

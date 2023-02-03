@@ -47,4 +47,8 @@ public class headChefActivity extends AppCompatActivity {
         myIntent.putExtra("name", name);
         startActivity(myIntent);
     }
+
+    public void DownloadHealthReport(View view) {
+        //function that downloads health report document
+    }
 }

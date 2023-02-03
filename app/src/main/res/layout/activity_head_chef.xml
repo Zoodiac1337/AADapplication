@@ -77,5 +77,16 @@
             android:layout_height="wrap_content"
             android:onClick="testButton"
             android:text="Recent alerts" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <Button
+            android:id="@+id/ReportButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="DownloadHealthReport"
+            android:text="Download Health Report" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

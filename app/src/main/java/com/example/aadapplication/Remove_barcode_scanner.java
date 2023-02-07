@@ -411,6 +411,7 @@ public class Remove_barcode_scanner extends AppCompatActivity {
                         }
                     });
                 }
+                else clearListViewRemove();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

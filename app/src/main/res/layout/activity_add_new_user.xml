@@ -14,12 +14,21 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Name" />
+
+        <EditText
             android:id="@+id/editTextTextEmailAddress2"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ems="10"
-            android:hint="email"
+            android:hint="Email"
             android:inputType="textEmailAddress" />
 
         <Spinner
@@ -34,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:onClick="onSubmitClicked"
             android:text="  Submit  " />
     </LinearLayout>
 

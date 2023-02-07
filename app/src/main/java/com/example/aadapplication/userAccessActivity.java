@@ -70,6 +70,48 @@ public class userAccessActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Fridges/"+fridgeID+"/Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                String[] emails = new String[task.getResult().size()];
+                String[] types = new String[task.getResult().size()];
+                String[] names = new String[task.getResult().size()];
+                if (task.isSuccessful()) {
+                    int i = 0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        emails[i] = document.getId();
+                        types[i]=document.getString("Type");
+                        names[i]=document.getString("Name");
+                        i++;
+                    }
+
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+                ListView lView;
+
+                ListAdapterAccess lAdapter;
+
+                lView = (ListView) findViewById(R.id.androidList);
+
+                lAdapter = new ListAdapterAccess(userAccessActivity.this, names, emails, types);
+
+                lView.setAdapter(lAdapter);
+
+                lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(userAccessActivity.this, names[i]+" "+emails[i], Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
     public void toAddNewUserActivity(View view){
         Bundle bundle = getIntent().getExtras();
         fridgeID = bundle.getString("fridgeID");

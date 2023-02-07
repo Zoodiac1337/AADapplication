@@ -2,6 +2,7 @@ package com.example.aadapplication;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,7 @@ public class userAccessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_stock);
+        setContentView(R.layout.activity_user_access);
 
         Bundle bundle = getIntent().getExtras();
         fridgeID = bundle.getString("fridgeID");
@@ -68,10 +69,13 @@ public class userAccessActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public void toAddNewUserActivity(View view){
+        Bundle bundle = getIntent().getExtras();
+        fridgeID = bundle.getString("fridgeID");
 
-
-
-
-
+        Intent myIntent = new Intent(userAccessActivity.this, addNewUserActivity.class);
+        myIntent.putExtra("fridgeID", fridgeID);
+        startActivity(myIntent);
     }
 }

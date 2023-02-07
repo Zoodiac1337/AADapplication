@@ -1,7 +1,9 @@
 package com.example.aadapplication;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -151,7 +154,25 @@ public class chooseFridgeActivity extends AppCompatActivity {
     }
 
     public void scanButtonClicked(View view){
-        startActivityForResult(new Intent(chooseFridgeActivity.this, QR_scanner.class),1);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // Request camera permission
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 201);
+        } else {
+            // Camera permission already granted, start camera preview
+            startActivityForResult(new Intent(chooseFridgeActivity.this, QR_scanner.class),1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 201) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startActivityForResult(new Intent(chooseFridgeActivity.this, QR_scanner.class),1);
+            } else {
+                Log.e("Barcode Scanner", "Camera permission denied");
+            }
+        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

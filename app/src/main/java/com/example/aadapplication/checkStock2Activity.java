@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -35,7 +36,7 @@ public class checkStock2Activity extends AppCompatActivity {
         documentId = bundle.getString("documentID");
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Fridges/"+fridgeID+"/Items/"+documentId+"/Items").orderBy("ExpiryDate").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Fridges/"+fridgeID+"/Items/"+documentId+"/Items").orderBy("ExpiryDate", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 String[] name = new String[task.getResult().size()];

@@ -29,6 +29,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
@@ -303,7 +304,34 @@ public class Remove_barcode_scanner extends AppCompatActivity {
 
     }
 
-
+    public void updateEarliestDate(String documentId){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Fridges/" + fridgeID + "/Items/" + documentId + "/Items").orderBy("ExpiryDate", Query.Direction.ASCENDING).limit(1).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                db.document("Fridges/"+fridgeID+"/Items/"+documentId).update("First to expire",document.getDate("ExpiryDate"));
+                            }
+                        }
+                    }
+                });
+    }
+    public void updateLatestDate(String documentId){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Fridges/" + fridgeID + "/Items/" + documentId + "/Items").orderBy("ExpiryDate", Query.Direction.DESCENDING).limit(1).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                db.document("Fridges/"+fridgeID+"/Items/"+documentId).update("Last to expire",document.getDate("ExpiryDate"));
+                            }
+                        }
+                    }
+                });
+    }
     public void addToListViewRemove() {
         //add values to list view of recently added
         ListView items;
@@ -382,12 +410,10 @@ public class Remove_barcode_scanner extends AppCompatActivity {
             return;
         }
 
-
-
         Query query = collection.whereEqualTo("ExpiryDate", dateObject);
 
-
         //query.get();
+        Date finalDateObject = dateObject;
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -398,11 +424,28 @@ public class Remove_barcode_scanner extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             DocumentReference newref=db.document("/Fridges/"+fridgeID+"/Items/" + field);
+
                             Map<String, Object> qdata = new HashMap<>();
                             qdata.put("Quantity", FieldValue.increment(-1) );
                             newref.update(qdata);
 
                             addToListViewRemove();
+
+                            newref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            if (finalDateObject.equals(document.getDate("First to expire")))
+                                                updateEarliestDate(field);
+                                            else if (finalDateObject.equals(document.getDate("Last to expire")))
+                                                updateLatestDate(field);
+                                        }
+                                    }
+                                }
+                            });
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -419,7 +462,6 @@ public class Remove_barcode_scanner extends AppCompatActivity {
                 return;
             }
         });
-
 
     }
 }

@@ -1,9 +1,15 @@
 package com.example.aadapplication;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -26,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class headChefActivity extends AppCompatActivity {
 
@@ -41,6 +48,46 @@ public class headChefActivity extends AppCompatActivity {
         email = bundle.getString("email");
         name = bundle.getString("name");
         fridgeID = bundle.getString("fridgeID");
+        System.out.println("here");
+
+
+        //check if notification has already been created
+
+        SharedPreferences preferences = this.getSharedPreferences("MidDayTask", Context.MODE_PRIVATE);
+        String currentFridgeValue = preferences.getString(fridgeID, null);
+        if (currentFridgeValue == null) {
+            System.out.println("herexxxxxxxx");
+            // The trigger with the same fridge value already exists
+            createNotificationChannel();
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(this, MidDayTaskReceiver.class);
+            intent.putExtra("fridgeID", fridgeID);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+            System.out.println("set schedule");
+            //check that task has been enabled
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 12);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            //Calendar calendar = Calendar.getInstance();
+            //calendar.setTimeInMillis(System.currentTimeMillis());
+            //alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 30 * 1000, pendingIntent);
+
+
+
+            SharedPreferences sharedPreferences = getSharedPreferences("MidDayTask", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(fridgeID, fridgeID);
+            editor.apply();
+        }
+
+
+
+
+
+
     }
 
     public void insertItemButton(View view) {
@@ -150,4 +197,31 @@ public class headChefActivity extends AppCompatActivity {
 
 
     }
+
+    private boolean isScheduleCreated() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MidDayTask", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("schedule_created", false);
+    }
+    private boolean isMidDayTaskEnabled() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MidDayTask", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("enabled", true);
+    }
+
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "fridgeValueChannel";
+            String description = "description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("fridgeValueChannel", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 }

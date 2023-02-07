@@ -32,7 +32,7 @@
         android:text="Date1"
         android:textSize="20sp"
         android:maxLines="1"
-        android:layout_width="380dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Quantity"
         android:layout_alignLeft="@+id/Quantity"
@@ -43,11 +43,11 @@
         android:text="Date2"
         android:textSize="20sp"
         android:maxLines="1"
-        android:layout_width="380dp"
+        android:layout_marginTop="35dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Date1"
-        android:layout_alignLeft="@+id/Date1"
-        android:layout_alignStart="@+id/Date1"
+        android:layout_toRightOf="@+id/Date1"
+        android:layout_toEndOf="@+id/Date1"
         />
 
 

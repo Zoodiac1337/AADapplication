@@ -10,25 +10,23 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ListAdapterStock extends BaseAdapter{
+public class ListAdapterStock2 extends BaseAdapter{
     Context context;
-    private final String [] name;
-    private final int [] quantity;
-    private final Date[] date1;
-    private final Date[] date2;
+    private final String [] insertedBy;
+    private final Date[] insertedOn;
+    private final Date[] expiryDate;
 
-    public ListAdapterStock(Context context, String [] names, int [] quantities, Date[] date1, Date [] date2){
+    public ListAdapterStock2(Context context, String [] names, Date[] date1, Date [] date2){
         //super(context, R.layout.single_list_app_item, utilsArrayList);
         this.context = context;
-        this.name = names;
-        this.quantity = quantities;
-        this.date1 = date1;
-        this.date2 = date2;
+        this.insertedBy = names;
+        this.insertedOn = date1;
+        this.expiryDate = date2;
     }
 
     @Override
     public int getCount() {
-        return name.length;
+        return insertedBy.length;
     }
 
     @Override
@@ -52,11 +50,10 @@ public class ListAdapterStock extends BaseAdapter{
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.single_list_item_stock, parent, false);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.ItemName);
-            viewHolder.intQuantity = (TextView) convertView.findViewById(R.id.Quantity);
-            viewHolder.txtDate1 = (TextView) convertView.findViewById(R.id.Date1);
-            viewHolder.txtDate2 = (TextView) convertView.findViewById(R.id.Date2);
+            convertView = inflater.inflate(R.layout.single_list_item_stock2, parent, false);
+            viewHolder.txtInsertedOn = (TextView) convertView.findViewById(R.id.InsertedOn);
+            viewHolder.txtInsertedBy = (TextView) convertView.findViewById(R.id.InsertedBy);
+            viewHolder.txtExpiryDate = (TextView) convertView.findViewById(R.id.ExpiryDate);
 
             result=convertView;
 
@@ -68,20 +65,18 @@ public class ListAdapterStock extends BaseAdapter{
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        viewHolder.txtName.setText(name[position]);
-        viewHolder.intQuantity.setText("#"+ quantity[position]+" ");
-        viewHolder.txtDate1.setText(sdf.format(date1[position])+" - ");
-        viewHolder.txtDate2.setText(sdf.format(date2[position]));
+        viewHolder.txtInsertedBy.setText(insertedBy[position]);
+        viewHolder.txtInsertedOn.setText(sdf.format(insertedOn[position]));
+        viewHolder.txtExpiryDate.setText(sdf.format(expiryDate[position]));
 
         return convertView;
     }
 
     private static class ViewHolder {
 
-        TextView txtName;
-        TextView intQuantity;
-        TextView txtDate1;
-        TextView txtDate2;
+        TextView txtInsertedOn;
+        TextView txtInsertedBy;
+        TextView txtExpiryDate;
 
     }
 }

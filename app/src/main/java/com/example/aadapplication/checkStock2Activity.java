@@ -2,7 +2,6 @@ package com.example.aadapplication;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,40 +15,39 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Date;
 
-public class checkStockActivity extends AppCompatActivity {
+public class checkStock2Activity extends AppCompatActivity {
 
     private String fridgeID;
+    private String documentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_stock);
+        setContentView(R.layout.activity_check_stock2);
 
         Bundle bundle = getIntent().getExtras();
         fridgeID = bundle.getString("fridgeID");
+        documentId = bundle.getString("documentID");
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Fridges/"+fridgeID+"/Items").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Fridges/"+fridgeID+"/Items/"+documentId+"/Items").orderBy("ExpiryDate", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                int[] quantity = new int[task.getResult().size()];
                 String[] name = new String[task.getResult().size()];
                 Date[] date1 = new Date[task.getResult().size()];
                 Date[] date2 = new Date[task.getResult().size()];
-                String[] documentId = new String[task.getResult().size()];
                 if (task.isSuccessful()) {
                     int i = 0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        name[i]=document.getString("Name");
-                        date1[i]=document.getDate("First to expire");
-                        date2[i]=document.getDate("Last to expire");
-                        quantity[i]=document.getDouble("Quantity").intValue();
-                        documentId[i] = document.getId();
+                        name[i]=document.getString("Insertedby");
+                        date1[i]=document.getDate("InsertedOn");
+                        date2[i]=document.getDate("ExpiryDate");
                         i++;
                     }
 
@@ -58,22 +56,19 @@ public class checkStockActivity extends AppCompatActivity {
                 }
                 ListView lView;
 
-                ListAdapterStock lAdapter;
+                ListAdapterStock2 lAdapter;
 
                 lView = (ListView) findViewById(R.id.androidList);
 
-                lAdapter = new ListAdapterStock(checkStockActivity.this, name, quantity, date1, date2);
+                lAdapter = new ListAdapterStock2(checkStock2Activity.this, name, date1, date2);
 
                 lView.setAdapter(lAdapter);
 
                 lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(checkStockActivity.this, " "+documentId[i], Toast.LENGTH_SHORT).show();
-                        Intent myIntent = new Intent(checkStockActivity.this, checkStock2Activity.class);
-                        myIntent.putExtra("fridgeID", fridgeID);
-                        myIntent.putExtra("documentID", documentId[i]);
-                        startActivity(myIntent);
+
+                        Toast.makeText(checkStock2Activity.this, name[i]+" ", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

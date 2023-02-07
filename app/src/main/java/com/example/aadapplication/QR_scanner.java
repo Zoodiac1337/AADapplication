@@ -191,9 +191,7 @@ public class QR_scanner extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Intent myIntent = new Intent(QR_scanner.this, QR_scanner.class);
-                startActivity(myIntent);
-                finish();
+                startCameraPreview();
             } else {
                 Log.e("Barcode Scanner", "Camera permission denied");
             }

@@ -1,24 +1,22 @@
 package com.example.aadapplication;
 
 import android.Manifest;
-
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import android.graphics.ImageFormat;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.util.Log;
-
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +26,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-
-
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -42,14 +38,12 @@ import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 
-
 import java.io.IOException;
-
-
 import java.nio.ByteBuffer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -77,7 +71,7 @@ public class barcode_scanner extends AppCompatActivity {
     private EditText QuanityField;
 
     private EditText ExpiryDateField;
-
+    private DatePickerDialog datePickerDialog;
 
 
     private String barcodeData;
@@ -107,6 +101,32 @@ public class barcode_scanner extends AppCompatActivity {
         //initialiseDetectorsAndSources();
 
         cameraView = findViewById(R.id.surface_view);
+
+        ExpiryDateField = findViewById(R.id.ExpiryDateField);
+        ExpiryDateField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // calender class's instance and get current date , month and year from calender
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                datePickerDialog = new DatePickerDialog(barcode_scanner.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // set day of month , month and year value in the edit text
+                                ExpiryDateField.setText(dayOfMonth +"/"+
+                                        (monthOfYear + 1) + "/"+ year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
 
         // Initialize the barcode scanner
         BarcodeScannerOptions options =
@@ -203,7 +223,7 @@ public class barcode_scanner extends AppCompatActivity {
                                                                             System.out.println(barcodes.size());
                                                                             Barcode barcode = barcodes.get(0);
                                                                             barcodeText.setText(barcode.getRawValue());
-
+                                                                            cameraView.setVisibility(View.GONE);
 
                                                                             //call api https://openfoodfacts.github.io/api-documentation/
                                                                             //if product found use this information
@@ -282,9 +302,9 @@ public class barcode_scanner extends AppCompatActivity {
     }
 
     public void resumePreview(View view){
+        cameraView.setVisibility(View.VISIBLE);
         stopScanning=false;
         camera.startPreview();
-
     }
 
 
@@ -322,7 +342,7 @@ public class barcode_scanner extends AppCompatActivity {
         //check date
 
         String date =ExpiryDateField.getText().toString();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date dateObject = null;
         dateFormat.setLenient(false);
         try {

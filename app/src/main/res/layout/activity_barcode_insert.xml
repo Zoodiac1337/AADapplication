@@ -6,101 +6,88 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".barcode_scanner">
 
-    <SurfaceView
-        android:id="@+id/surface_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/barcode_text"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:padding="5dp"
-        android:hint="Barcode Text"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ReScan" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/ReScan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="resumePreview"
-        android:text="ReScan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/surface_view" />
+        <SurfaceView
+            android:id="@+id/surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
 
-    <EditText
-        android:id="@+id/ExpiryDateField"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:inputType="date"
-        android:hint="Expiry"
-        android:textAlignment="center"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProductNameField" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
 
-    <EditText
-        android:id="@+id/ProductNameField"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:hint="Product Name"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barcode_text" />
+        <TextView
+            android:id="@+id/barcode_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Barcode Text"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/QuanityField"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:ems="10"
-        android:inputType="number"
-        android:hint="Quantity"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ExpiryDateField"
-        tools:textAlignment="center" />
+        <Button
+            android:id="@+id/ReScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="resumePreview"
+            android:text="ReScan" />
 
-    <Button
-        android:id="@+id/AddItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:onClick="addItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/QuanityField" />
+        <EditText
+            android:id="@+id/ProductNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Product Name"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <ListView
-        android:id="@+id/AddedValues"
-        android:layout_width="0dp"
-        android:layout_height="161dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddItem" />
+        <EditText
+            android:id="@+id/ExpiryDateField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Expiry"
+            android:inputType="date"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/QuanityField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:ems="10"
+            android:hint="Quantity"
+            android:inputType="number"
+            android:textSize="20sp"
+            tools:textAlignment="center" />
+
+        <Button
+            android:id="@+id/AddItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="addItems"
+            android:text="Add" />
+
+        <ListView
+            android:id="@+id/AddedValues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="1dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

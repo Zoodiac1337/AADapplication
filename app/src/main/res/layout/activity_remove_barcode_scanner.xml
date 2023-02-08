@@ -5,84 +5,155 @@
     android:layout_height="match_parent"
     tools:context=".Remove_barcode_scanner">
 
-<SurfaceView
-    android:id="@+id/surface_view_remove"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:layout_marginTop="32dp"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
-<TextView
-    android:id="@+id/barcode_text_remove"
-    android:layout_width="0dp"
-    android:layout_height="35dp"
-    android:padding="5dp"
-    android:hint="Barcode Text"
-    android:textAlignment="center"
-    android:textSize="12sp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/ReScan_remove" />
-
-    <Button
-        android:id="@+id/ReScan_remove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="resumePreview"
-        android:text="ReScan"
-        app:layout_constraintEnd_toEndOf="parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/surface_view_remove" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/ExpiryDateField_remove"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:hint="Expiry"
-        android:inputType="date"
-        android:textAlignment="center"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProductNameField_remove" />
+        <SurfaceView
+            android:id="@+id/surface_view_remove"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
 
-<EditText
-    android:id="@+id/ProductNameField_remove"
-    android:layout_width="0dp"
-    android:layout_height="35dp"
-    android:ems="10"
-    android:hint="Product Name"
-    android:inputType="textPersonName"
-    android:textAlignment="center"
-    android:textSize="10sp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/barcode_text_remove" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
 
-    <Button
-        android:id="@+id/RemoveItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:onClick="removeItems"
-        android:text="Remove"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ExpiryDateField_remove" />
+        <TextView
+            android:id="@+id/barcode_text_remove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Barcode Text"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <ListView
-        android:id="@+id/AddedValues"
-        android:layout_width="0dp"
-        android:layout_height="161dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RemoveItem" />
+        <Button
+            android:id="@+id/ReScan_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="resumePreview"
+            android:text="ReScan" />
+
+        <EditText
+            android:id="@+id/ProductNameField_remove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Product Name"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/ExpiryDateField_remove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Expiry"
+            android:inputType="date"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/RemoveItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="removeItems"
+            android:text="Remove" />
+
+        <ListView
+            android:id="@+id/AddedValues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="1dp" />
+    </LinearLayout>
+<!--<SurfaceView-->
+<!--    android:id="@+id/surface_view_remove"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="300dp"-->
+<!--    android:layout_marginTop="32dp"-->
+<!--    app:layout_constraintHorizontal_bias="0.0"-->
+<!--    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--    app:layout_constraintRight_toRightOf="parent"-->
+<!--    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/barcode_text_remove"-->
+<!--    android:layout_width="0dp"-->
+<!--    android:layout_height="35dp"-->
+<!--    android:padding="5dp"-->
+<!--    android:hint="Barcode Text"-->
+<!--    android:textAlignment="center"-->
+<!--    android:textSize="12sp"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintHorizontal_bias="1.0"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintTop_toBottomOf="@+id/ReScan_remove" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/ReScan_remove"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:onClick="resumePreview"-->
+<!--        android:text="ReScan"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/surface_view_remove" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/ExpiryDateField_remove"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Expiry"-->
+<!--        android:inputType="date"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="10sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ProductNameField_remove" />-->
+
+<!--<EditText-->
+<!--    android:id="@+id/ProductNameField_remove"-->
+<!--    android:layout_width="0dp"-->
+<!--    android:layout_height="35dp"-->
+<!--    android:ems="10"-->
+<!--    android:hint="Product Name"-->
+<!--    android:inputType="textPersonName"-->
+<!--    android:textAlignment="center"-->
+<!--    android:textSize="10sp"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintTop_toBottomOf="@+id/barcode_text_remove" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/RemoveItem"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="35dp"-->
+<!--        android:onClick="removeItems"-->
+<!--        android:text="Remove"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ExpiryDateField_remove" />-->
+
+<!--    <ListView-->
+<!--        android:id="@+id/AddedValues"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="161dp"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/RemoveItem" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

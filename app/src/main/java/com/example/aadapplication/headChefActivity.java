@@ -226,4 +226,9 @@ public class headChefActivity extends AppCompatActivity {
         }
     }
 
+    public void optionMenu(View view) {
+        Intent myIntent = new Intent(headChefActivity.this, userOptions.class);
+        myIntent.putExtra("email", email);
+        startActivity(myIntent);
+    }
 }

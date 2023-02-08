@@ -7,20 +7,17 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,7 +28,6 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 
 public class headChefActivity extends AppCompatActivity {
@@ -39,6 +35,8 @@ public class headChefActivity extends AppCompatActivity {
     private String email;
     private String fridgeID;
     private String name;
+
+    private TextView fridgeTextID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +48,8 @@ public class headChefActivity extends AppCompatActivity {
         fridgeID = bundle.getString("fridgeID");
         System.out.println("here");
 
+        fridgeTextID = findViewById(R.id.fridgeIDtext);
+        fridgeTextID.setText("Fridge #"+fridgeID);
 
         //check if notification has already been created
 

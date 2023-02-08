@@ -22,6 +22,7 @@ import androidx.core.content.FileProvider;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
@@ -127,12 +128,19 @@ public class headChefActivity extends AppCompatActivity {
 // Next, you need to create a reference to the file you want to download:
         StorageReference fileReference = storageReference.child("Reports/" + fridgeID);
 
+
 // You will also need to create a local file to store the downloaded data:
         File localFile = null;
         File downloadsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         localFile = new File(downloadsDirectory, fridgeID + " Report.txt");
+        if (localFile.exists()){
+            Toast.makeText(this, "file already exists please check downloads folder", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         File finalLocalFile = localFile;
+
+
 
         fileReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
             @Override
@@ -168,12 +176,6 @@ public class headChefActivity extends AppCompatActivity {
 
                                 Toast.makeText(headChefActivity.this, fridgeID +" in Downloads folder", Toast.LENGTH_SHORT).show();
                                 return;
-
-
-
-
-
-
 
                             }
                         })

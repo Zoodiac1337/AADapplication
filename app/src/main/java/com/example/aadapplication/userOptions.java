@@ -1,13 +1,13 @@
 package com.example.aadapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class userOptions extends AppCompatActivity {
     private String email;
@@ -32,7 +32,7 @@ public class userOptions extends AppCompatActivity {
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
-        popupWindow.showAtLocation(findViewById(R.id.PasswordChange), Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(findViewById(R.id.PasswordChange), Gravity.CENTER, 0, 150);
 
     }
 }

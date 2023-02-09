@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AADapplication</string>
+    <string name="app_name">Future Fridges</string>
     <string name="title_activity_delivery_driver">deliveryDriverActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

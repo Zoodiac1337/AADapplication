@@ -65,12 +65,12 @@ public class barcode_scanner extends AppCompatActivity {
 
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private ToneGenerator toneGen1;
-    private TextView barcodeText;
+    private EditText barcodeText;
     private EditText ProductNameField;
 
     private EditText QuanityField;
 
-    private EditText ExpiryDateField;
+    private TextView ExpiryDateField;
     private DatePickerDialog datePickerDialog;
 
 

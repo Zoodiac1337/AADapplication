@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,8 +66,9 @@ public class checkStock2Activity extends AppCompatActivity {
                 lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        Toast.makeText(checkStock2Activity.this, name[i]+" ", Toast.LENGTH_SHORT).show();
+//                        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+//
+//                        Toast.makeText(checkStock2Activity.this, "Inserted at: "+dateFormat.format(date1[i]), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

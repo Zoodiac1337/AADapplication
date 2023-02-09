@@ -259,7 +259,7 @@ public class headChefActivity extends AppCompatActivity {
 // You will also need to create a local file to store the downloaded data:
         File localFile = null;
         File downloadsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        localFile = new File(downloadsDirectory, fridgeID + " Order Document"+ Timestamp.now().toDate().toString()+".txt");
+        localFile = new File(downloadsDirectory, fridgeID + " Order.txt");
         if (localFile.exists()){
             Toast.makeText(this, "file already exists please check downloads folder", Toast.LENGTH_SHORT).show();
             return;
@@ -303,12 +303,15 @@ public class headChefActivity extends AppCompatActivity {
                                 NotificationCompat.Builder builder = new NotificationCompat.Builder(headChefActivity.this, "download_notifications")
                                         .setSmallIcon(R.drawable.ic_launcher_background)
                                         .setContentTitle("Download complete")
-                                        .setContentText("Re order Document saved in downloads folder")
+                                        .setContentText("File saved in downloads folder")
                                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                                        .setContentIntent(pendingIntent);
 
                                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(headChefActivity.this);
-                                notificationManager.notify(5, builder.build());
+                                notificationManager.notify(4, builder.build());
+
+
 
                                 Toast.makeText(headChefActivity.this, fridgeID +" in Downloads folder", Toast.LENGTH_SHORT).show();
                                 return;
@@ -318,7 +321,7 @@ public class headChefActivity extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(headChefActivity.this, "error occurred or document may not be available currently", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(headChefActivity.this, "error occurred", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                         });
@@ -334,8 +337,8 @@ public class headChefActivity extends AppCompatActivity {
         });
 
 
-
-
-
     }
+
+
+
 }

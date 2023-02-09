@@ -76,10 +76,11 @@
             android:layout_height="32dp" />
 
         <Button
-            android:id="@+id/CHReorderSettings"
+            android:id="@+id/CHReorderDocument"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reorder settings" />
+            android:onClick="ReorderDocument"
+            android:text="Reorder Document" />
 
         <Space
             android:layout_width="match_parent"

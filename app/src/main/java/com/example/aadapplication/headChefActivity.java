@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.FileProvider;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -151,6 +152,18 @@ public class headChefActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    CharSequence name = "download_notifications";
+                                    String description = "download_notifications";
+                                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                                    NotificationChannel channel = new NotificationChannel("download_notifications", name, importance);
+                                    channel.setDescription(description);
+                                    // Register the channel with the system; you can't change the importance
+                                    // or other notification behaviors after this
+                                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                                    notificationManager.createNotificationChannel(channel);
+                                }
+
                                 Uri uri = FileProvider.getUriForFile(headChefActivity.this, "com.example.app.provider", finalLocalFile);
 
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -166,11 +179,11 @@ public class headChefActivity extends AppCompatActivity {
                                         .setContentTitle("Download complete")
                                         .setContentText("File saved in downloads folder")
                                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                                        .setContentIntent(pendingIntent)
-                                        .setAutoCancel(true);
+                                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                                        .setContentIntent(pendingIntent);
 
-
-
+                                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(headChefActivity.this);
+                                notificationManager.notify(4, builder.build());
 
 
 
@@ -230,5 +243,99 @@ public class headChefActivity extends AppCompatActivity {
         Intent myIntent = new Intent(headChefActivity.this, userOptions.class);
         myIntent.putExtra("email", email);
         startActivity(myIntent);
+    }
+
+    public void ReorderDocument(View view) {
+
+
+        //function that downloads health report document
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://advanced-analysis-and-design.appspot.com");
+
+// Next, you need to create a reference to the file you want to download:
+        StorageReference fileReference = storageReference.child("OrderDocument/" + fridgeID);
+
+
+// You will also need to create a local file to store the downloaded data:
+        File localFile = null;
+        File downloadsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        localFile = new File(downloadsDirectory, fridgeID + " Order Document"+ Timestamp.now().toDate().toString()+".txt");
+        if (localFile.exists()){
+            Toast.makeText(this, "file already exists please check downloads folder", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        File finalLocalFile = localFile;
+
+
+
+        fileReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+            @Override
+            public void onSuccess(StorageMetadata storageMetadata) {
+                // The document exists, so we can proceed with the download:
+                fileReference.getFile(finalLocalFile)
+                        .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    CharSequence name = "download_notifications";
+                                    String description = "download_notifications";
+                                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                                    NotificationChannel channel = new NotificationChannel("download_notifications", name, importance);
+                                    channel.setDescription(description);
+                                    // Register the channel with the system; you can't change the importance
+                                    // or other notification behaviors after this
+                                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                                    notificationManager.createNotificationChannel(channel);
+                                }
+
+                                Uri uri = FileProvider.getUriForFile(headChefActivity.this, "com.example.app.provider", finalLocalFile);
+
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setDataAndType(uri, "text/plain");
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                                PendingIntent pendingIntent = PendingIntent.getActivity(headChefActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+                                //PendingIntent pendingIntent = PendingIntent.getActivity(headChefActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+                                NotificationCompat.Builder builder = new NotificationCompat.Builder(headChefActivity.this, "download_notifications")
+                                        .setSmallIcon(R.drawable.ic_launcher_background)
+                                        .setContentTitle("Download complete")
+                                        .setContentText("Re order Document saved in downloads folder")
+                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+                                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(headChefActivity.this);
+                                notificationManager.notify(5, builder.build());
+
+                                Toast.makeText(headChefActivity.this, fridgeID +" in Downloads folder", Toast.LENGTH_SHORT).show();
+                                return;
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(headChefActivity.this, "error occurred or document may not be available currently", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        });
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // The document does not exist:
+                Toast.makeText(headChefActivity.this, "no report exists ", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        });
+
+
+
+
+
     }
 }

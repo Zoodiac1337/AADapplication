@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class addNewUserActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -76,6 +77,7 @@ public class addNewUserActivity extends AppCompatActivity implements AdapterView
                         Map<String, Object> user = new HashMap<>();
                         user.put("Name", sName);
                         user.put("Type", type);
+                        if (type.equals("DeliveryDriver")) user.put("PinNumber",10000 + new Random().nextInt(90000));
                         docRef.set(user);
                         Toast.makeText(addNewUserActivity.this, "Added a new "+type+"!", Toast.LENGTH_SHORT).show();
                     }

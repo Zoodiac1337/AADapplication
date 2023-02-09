@@ -16,10 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class editUserActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -88,7 +90,9 @@ public class editUserActivity extends AppCompatActivity implements AdapterView.O
                         Map<String, Object> user = new HashMap<>();
                         user.put("Name", sName);
                         user.put("Type", type);
-                        docRef.set(user);
+                        if (type.equals("DeliveryDriver")) user.put("PinNumber",10000 + new Random().nextInt(90000));
+                        else user.put("PinNumber", FieldValue.delete());
+                        docRef.update(user);
                         Toast.makeText(editUserActivity.this, "Succesfully changed details!", Toast.LENGTH_SHORT).show();
                     }
                 }

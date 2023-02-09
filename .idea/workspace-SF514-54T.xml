@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config>
+        <device id="pixel" />
+        <option name="nonWearDeviceLastStateName" value="Portrait" />
+      </config>
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ebee96ef-43da-41df-9cdf-755884aed2f3" name="Changes" comment="Fixed black camera screen after granting permissions and changed format of checkStock" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\pawel\.android\avd\Pixel_4a_API_30_1.avd]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Pull.Settings">
+    <option name="OPTIONS">
+      <set>
+        <option value="REBASE" />
+      </set>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KocbLsCnTIacmXjbG9PaGMOYgI" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/test/java/com/example/aadapplication" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout" />
+  </component>
+  <component name="RecentsManager">
+    <key name="android.template.1546462275">
+      <recent name="com.example.aadapplication" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\pawel\OneDrive - Nottingham Trent University\Documents\SOFT30121_Project\AADapplication\app\src\main\res\layout" />
+    </key>
+    <key name="android.template.1173182175">
+      <recent name="com.example.aadapplication" />
+    </key>
+    <key name="android.template.1341139684">
+      <recent name="com.example.aadapplication" />
+    </key>
+    <key name="android.template.1906110010">
+      <recent name="com.example.aadapplication" />
+    </key>
+    <key name="android.template.-276049006">
+      <recent name="com.example.aadapplication" />
+    </key>
+    <key name="android.template.1322326882">
+      <recent name="com.example.aadapplication" />
+    </key>
+    <key name="android.template.-640483155">
+      <recent name="com.example.aadapplication" />
+    </key>
+    <key name="android.template.-1754729440">
+      <recent name="com.example.aadapplication" />
+    </key>
+    <key name="android.template.-1845425605">
+      <recent name="com.example.aadapplication" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.aadapplication" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="AADapplication.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+        <option name="PROFILING_MODE" value="NOT_SET" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ebee96ef-43da-41df-9cdf-755884aed2f3" name="Changes" comment="" />
+      <created>1674644447105</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1674644447105</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Simple authorisation and fridge recognision app, users are currently registered to a fridge only via firebase">
+      <created>1674740375255</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1674740375255</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added buttons to user specific screens">
+      <created>1674741827839</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1674741827839</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added sign out functionality to the chooseFridgeActivity.">
+      <created>1674743863275</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674743863275</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Quick fix of register button.">
+      <created>1674744060937</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674744060937</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added insert item activity (for now only connected with headChefActivity)">
+      <created>1674805822469</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674805822469</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added saving user's saved fridges to local storage using SharedPreferences">
+      <created>1674807540355</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1674807540355</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added manual inserting items to the database (might need to be modified when implementing viewing end removing items)">
+      <created>1674908551510</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1674908551510</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added check stock screen (with predefined values for now)">
+      <created>1675150044266</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1675150044266</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Updated last commit">
+      <created>1675171074047</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1675171074047</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added user access screen (still with only predefined values)">
+      <created>1675172949827</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1675172949827</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added searching for fridge using QR code of the fridgeID">
+      <created>1675178889708</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1675178889708</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fixed document not creating if it doesn't exist in barcode_scanner">
+      <created>1675357497989</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1675357497989</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added &quot;First to expire&quot; and &quot;Last to expire&quot; in an item's document">
+      <created>1675358850573</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1675358850573</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added reading data from database for userAccessActivity">
+      <created>1675364983162</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1675364983162</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added reading data from database for checkStockActivity">
+      <created>1675366131169</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1675366131169</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added bundles (should work but yet to be tested)">
+      <created>1675368599239</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1675368599239</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fixed issues with bundles.">
+      <created>1675423756385</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1675423756385</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Fixed black camera screen after granting permissions and changed format of checkStock">
+      <created>1675427540471</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1675427540471</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Simple authorisation and fridge recognision app, users are currently registered to a fridge only via firebase" />
+    <MESSAGE value="Added buttons to user specific screens" />
+    <MESSAGE value="Added sign out functionality to the chooseFridgeActivity." />
+    <MESSAGE value="Quick fix of register button." />
+    <MESSAGE value="Added insert item activity (for now only connected with headChefActivity" />
+    <MESSAGE value="Added insert item activity (for now only connected with headChefActivity)" />
+    <MESSAGE value="Added saving user's saved fridges to local storage using SharedPreferences" />
+    <MESSAGE value="Added manual inserting items to the database (might need to be modified when implementing viewing end removing items)" />
+    <MESSAGE value="Added check stock screen (with predefined values for now)" />
+    <MESSAGE value="Updated last commit" />
+    <MESSAGE value="Added user access screen (still with only predefined values)" />
+    <MESSAGE value="Added searching for fridge using QR code of the fridgeID" />
+    <MESSAGE value="Fixed document not creating if it doesn't exist in barcode_scanner" />
+    <MESSAGE value="Added &quot;First to expire&quot; and &quot;Last to expire&quot; in an item's document" />
+    <MESSAGE value="Added reading data from database for userAccessActivity" />
+    <MESSAGE value="Added reading data from database for checkStockActivity" />
+    <MESSAGE value="Added bundles (should work but yet to be tested)" />
+    <MESSAGE value="Fixed issues with bundles." />
+    <MESSAGE value="Fixed black camera screen after granting permissions and changed format of checkStock" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed black camera screen after granting permissions and changed format of checkStock" />
+  </component>
+</project>

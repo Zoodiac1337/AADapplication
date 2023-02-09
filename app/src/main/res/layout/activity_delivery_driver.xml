@@ -46,7 +46,8 @@
             android:id="@+id/HCRemoveItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contact the head chef" />
+            android:onClick="contactHeadChefButton"
+            android:text="Contact a head chef" />
 
         <Space
             android:layout_width="match_parent"
@@ -56,6 +57,7 @@
             android:id="@+id/HCCheckStock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View my PIN number" />
+            android:onClick="showMyPinNumberButton"
+            android:text="Show my PIN number" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

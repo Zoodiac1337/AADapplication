@@ -111,7 +111,7 @@ public class chooseFridgeActivity extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 Log.d("chooseFridgeActivity", "Account Type: " + document.getString("Type"));
-                                Toast.makeText(chooseFridgeActivity.this, "Account Type: " + document.getString("Type"), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(chooseFridgeActivity.this, "Account Type: " + document.getString("Type"), Toast.LENGTH_SHORT).show();
                                 if (document.getString("Type").equals("HeadChef")) {
                                     Intent myIntent = new Intent(chooseFridgeActivity.this, headChefActivity.class);
                                     myIntent.putExtra("email", email);
@@ -142,7 +142,7 @@ public class chooseFridgeActivity extends AppCompatActivity {
                         }
                     }
                 });
-                Toast.makeText(chooseFridgeActivity.this, " "+ parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(chooseFridgeActivity.this, " "+ parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
             }
         });
     }

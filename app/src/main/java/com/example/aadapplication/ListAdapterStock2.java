@@ -63,10 +63,11 @@ public class ListAdapterStock2 extends BaseAdapter{
             result=convertView;
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("E, dd/MM");
+        SimpleDateFormat sd2 = new SimpleDateFormat("dd/MM HH:mm");
 
         viewHolder.txtInsertedBy.setText(insertedBy[position]);
-        viewHolder.txtInsertedOn.setText(sdf.format(insertedOn[position]));
+        viewHolder.txtInsertedOn.setText(sd2.format(insertedOn[position]));
         viewHolder.txtExpiryDate.setText(sdf.format(expiryDate[position]));
 
         return convertView;

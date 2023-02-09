@@ -73,7 +73,7 @@ public class signInActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d("SignInActivity", "Account Type: " + document.getString("Type"));
-                        Toast.makeText(signInActivity.this, "Account Type: " + document.getString("Type"), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(signInActivity.this, "Account Type: " + document.getString("Type"), Toast.LENGTH_SHORT).show();
 
                     } else {
                         Log.d("SignInActivity", "No such document");

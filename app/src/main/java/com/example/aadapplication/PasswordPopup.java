@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,25 +20,46 @@ public class PasswordPopup extends AppCompatActivity {
 
     private FirebaseUser user;
 
+    private TextView accountField;
+    private EditText oldPassField;
+
+    private EditText newPassOneField;
+    private EditText newPassTwoField;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_popup);
+        Bundle bundle = getIntent().getExtras();
+        String account = bundle.getString("email");
+        accountField = findViewById(R.id.CurrentAccountText);
+        accountField.setText(account.toString());
     }
-    private void changePassword(View view){
+    public void changePassword(View view){
 
         //check all required fields are not null
-        String oldPass = findViewById(R.id.OldPasswordField).toString();
-        String newPassOne = findViewById(R.id.NewPasswordField1).toString();
-        String newPassTwo = findViewById(R.id.NewPasswordField2).toString();
+        oldPassField = findViewById(R.id.OldPasswordField);
+        newPassOneField = findViewById(R.id.NewPasswordField1);
+        newPassTwoField = findViewById(R.id.NewPasswordField2);
+
+        String oldPass=oldPassField.getText().toString();
+        String newPassOne=newPassOneField.getText().toString();
+        String newPassTwo=newPassTwoField.getText().toString();
+        System.out.println(oldPass.length());
+
+        if(oldPass.length()==0||newPassOne.length()==0||newPassTwo.length()==0){
+            Toast.makeText(this,"one or more fields not entered",Toast.LENGTH_SHORT).show();
+            return;
+
+        }
 
         if(oldPass.contains(" ")||newPassOne.contains(" ")||newPassTwo.contains(" ")){
-            Toast.makeText(this,"one or more fields containe a space",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"one or more fields containe a space",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(newPassOne!=newPassTwo){
-            Toast.makeText(this,"passwords don't match",Toast.LENGTH_SHORT);
+        if(!newPassOne.equals(newPassTwo)){
+            Toast.makeText(this,"passwords don't match",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -56,18 +79,18 @@ public class PasswordPopup extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if(!task.isSuccessful()){
 
-                                Toast.makeText(view.getContext(),"Something went wrong. Please try again later",Toast.LENGTH_SHORT);
+                                Toast.makeText(view.getContext(),"Something went wrong. Please try again later",Toast.LENGTH_SHORT).show();
                                 return;
                             }else {
 
-                                Toast.makeText(view.getContext(),"Password Changed",Toast.LENGTH_SHORT);
+                                Toast.makeText(view.getContext(),"Password Changed",Toast.LENGTH_SHORT).show();
                                 return;
 
                             }
                         }
                     });
                 }else {
-                    Toast.makeText(view.getContext(),"Something went wrong. Please try again later",Toast.LENGTH_SHORT);
+                    Toast.makeText(view.getContext(),"Old Pass may be incorrect Please try again later",Toast.LENGTH_SHORT).show();
                     return;
                 }
             }

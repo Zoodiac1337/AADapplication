@@ -1,5 +1,6 @@
 package com.example.aadapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,15 +25,9 @@ public class userOptions extends AppCompatActivity {
 
     public void passwordForm(View view) {
 
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.activity_password_popup, null);
-
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true;
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        popupWindow.showAtLocation(findViewById(R.id.PasswordChange), Gravity.CENTER, 0, 150);
+        Intent myIntent = new Intent(userOptions.this, PasswordPopup.class);
+        myIntent.putExtra("email", email);
+        startActivity(myIntent);
 
     }
 }

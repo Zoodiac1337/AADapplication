@@ -65,7 +65,7 @@ public class barcode_scanner extends AppCompatActivity {
 
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private ToneGenerator toneGen1;
-    private EditText barcodeText;
+    private TextView barcodeText;
     private EditText ProductNameField;
 
     private EditText QuanityField;

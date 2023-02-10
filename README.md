@@ -1,5 +1,7 @@
 # AADapplication
 
+please note notifcations will trigger every 30 seconds or every midnight dependant on source code
+
 To log in use one of pre-made accounts:
 
 

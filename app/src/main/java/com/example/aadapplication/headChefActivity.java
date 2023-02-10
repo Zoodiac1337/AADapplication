@@ -68,14 +68,17 @@ public class headChefActivity extends AppCompatActivity {
             System.out.println("set schedule");
             //check that task has been enabled
 
-            Calendar calendar = Calendar.getInstance();
-            //calendar.set(Calendar.HOUR_OF_DAY, 12);
-            //calendar.set(Calendar.MINUTE, 0);
-            //calendar.set(Calendar.SECOND, 0);
-            //alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 30 * 1000, pendingIntent);
+            //comment out to change time to 30 seconds
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 12);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+            //uncommet to change time to 30 seconds
+            //calendar.setTimeInMillis(System.currentTimeMillis());
+            //alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 30 * 1000, pendingIntent);
 
 
 

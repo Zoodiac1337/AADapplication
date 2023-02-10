@@ -69,13 +69,13 @@ public class headChefActivity extends AppCompatActivity {
             //check that task has been enabled
 
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 12);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            //Calendar calendar = Calendar.getInstance();
-            //calendar.setTimeInMillis(System.currentTimeMillis());
-            //alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 30 * 1000, pendingIntent);
+            //calendar.set(Calendar.HOUR_OF_DAY, 12);
+            //calendar.set(Calendar.MINUTE, 0);
+            //calendar.set(Calendar.SECOND, 0);
+            //alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 30 * 1000, pendingIntent);
 
 
 
@@ -83,6 +83,7 @@ public class headChefActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(fridgeID, fridgeID);
             editor.apply();
+
         }
 
 
@@ -310,9 +311,6 @@ public class headChefActivity extends AppCompatActivity {
 
                                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(headChefActivity.this);
                                 notificationManager.notify(4, builder.build());
-
-
-
                                 Toast.makeText(headChefActivity.this, fridgeID +" in Downloads folder", Toast.LENGTH_SHORT).show();
                                 return;
 
@@ -341,4 +339,9 @@ public class headChefActivity extends AppCompatActivity {
 
 
 
+
+    public void recentAlerts(View view) {
+        Intent myIntent = new Intent(headChefActivity.this, Alerts.class);
+        startActivity(myIntent);
+    }
 }

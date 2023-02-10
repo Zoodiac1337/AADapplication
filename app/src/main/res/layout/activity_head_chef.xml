@@ -90,7 +90,7 @@
             android:id="@+id/saveAddingItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="testButton"
+            android:onClick="recentAlerts"
             android:text="Recent alerts" />
 
         <Space

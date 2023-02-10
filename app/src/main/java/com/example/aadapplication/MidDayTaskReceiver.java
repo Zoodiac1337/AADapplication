@@ -1,11 +1,14 @@
 package com.example.aadapplication;
 
 //import android.app.NotificationManager;
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
-        import androidx.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -103,6 +106,12 @@ public class MidDayTaskReceiver extends BroadcastReceiver {
 
                                                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                                                     notificationManager.notify(0, builder.build());
+
+                                                        SharedPreferences prefs = context.getSharedPreferences("Notifications", MODE_PRIVATE);
+                                                        SharedPreferences.Editor editor = prefs.edit();
+                                                        editor.putString(Timestamp.now().toString(), ("Expiring in one day Fridge:"+fridgeID +"contains "+count+" Items \n") );
+                                                        editor.apply();
+
                                                 }
                                                 if(! twoDay.isEmpty()){
                                                     String Text = stringBuilder(twoDay);
@@ -119,6 +128,10 @@ public class MidDayTaskReceiver extends BroadcastReceiver {
 
                                                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                                                     notificationManager.notify(1, builder.build());
+                                                    SharedPreferences prefs = context.getSharedPreferences("Notifications", MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = prefs.edit();
+                                                    editor.putString(Timestamp.now().toString(), ("Expiring in two days Fridge:"+fridgeID +"contains "+count+" Items \n") );
+                                                    editor.apply();
 
                                                 }
                                                 if(! threeDay.isEmpty()){
@@ -136,6 +149,11 @@ public class MidDayTaskReceiver extends BroadcastReceiver {
 
                                                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                                                     notificationManager.notify(2, builder.build());
+
+                                                    SharedPreferences prefs = context.getSharedPreferences("Notifications", MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = prefs.edit();
+                                                    editor.putString(Timestamp.now().toString(), ("Expiring in three days Fridge:"+fridgeID +"contains "+count+" Items \n") );
+                                                    editor.apply();
 
                                                 }
 

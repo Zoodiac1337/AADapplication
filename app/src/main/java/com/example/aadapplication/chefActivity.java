@@ -48,4 +48,10 @@ public class chefActivity extends AppCompatActivity {
         myIntent.putExtra("name", name);
         startActivity(myIntent);
     }
+
+    public void optionMenu(View view) {
+        Intent myIntent = new Intent(chefActivity.this, userOptions.class);
+        myIntent.putExtra("email", email);
+        startActivity(myIntent);
+    }
 }

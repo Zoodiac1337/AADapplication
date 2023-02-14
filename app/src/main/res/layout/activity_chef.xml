@@ -60,5 +60,19 @@
             android:onClick="checkStockButton"
             android:text="Check Stock" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_weight="10" />
+
+        <Button
+            android:id="@+id/options2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:drawableRight="@drawable/settings"
+            android:onClick="optionMenu"
+            android:text="Options" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

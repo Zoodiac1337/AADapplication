@@ -65,4 +65,10 @@ public class deliveryDriverActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void optionMenu(View view) {
+        Intent myIntent = new Intent(deliveryDriverActivity.this, userOptions.class);
+        myIntent.putExtra("email", email);
+        startActivity(myIntent);
+    }
 }

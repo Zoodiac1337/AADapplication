@@ -363,7 +363,7 @@ public class Remove_barcode_scanner extends AppCompatActivity {
                     }
                 });
     }
-    public void addToListViewRemove() {
+    public void addToListViewRemove(int itemsLeft) {
         //add values to list view of recently added
         ListView items;
         items = findViewById(R.id.AddedValues);
@@ -371,10 +371,11 @@ public class Remove_barcode_scanner extends AppCompatActivity {
         ArrayAdapter<Object> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, entries);
         items.setAdapter(adapter);
 
-        Toast.makeText(this, "Removed", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Removed", Toast.LENGTH_SHORT).show();
 
         // Add items to the list
-        entries.add("Removed: " + ProductNameField.getText().toString() + "\nExpires: " + ExpiryDateField.getText().toString());
+        if (itemsLeft==0) entries.add("Removed: " + ProductNameField.getText().toString() + "\nExpires: " + ExpiryDateField.getText().toString() + "\nNo items left with this expiry date.");
+        else entries.add("Removed: " + ProductNameField.getText().toString() + "\nExpires: " + ExpiryDateField.getText().toString() + "\nItems left with this expiry date: " + itemsLeft);
         adapter.notifyDataSetChanged();
     }
     public void clearListViewRemove() {
@@ -461,9 +462,9 @@ public class Remove_barcode_scanner extends AppCompatActivity {
 
                             Map<String, Object> qdata = new HashMap<>();
                             qdata.put("Quantity", FieldValue.increment(-1) );
-                            newref.update(qdata);
 
-                            addToListViewRemove();
+                            newref.update(qdata);
+                            addToListViewRemove(documentSnapshots.size()-1);
 
                             newref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override

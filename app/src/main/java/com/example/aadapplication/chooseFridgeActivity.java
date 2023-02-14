@@ -131,10 +131,13 @@ public class chooseFridgeActivity extends AppCompatActivity {
                                     myIntent.putExtra("fridgeID", parent.getItemAtPosition(position).toString());
                                     startActivity(myIntent);
                                 }
+                                else {
+                                    Toast.makeText(chooseFridgeActivity.this, "Incorrect user type!", Toast.LENGTH_SHORT).show();
+                                }
 
                             } else {
-                                Log.d("chooseFridgeActivity", "No such document");
-                                Toast.makeText(chooseFridgeActivity.this, "No such document", Toast.LENGTH_SHORT).show();
+                                Log.d("chooseFridgeActivity", "You are not registered with this fridge!");
+                                Toast.makeText(chooseFridgeActivity.this, "You are not registered with this fridge!", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Log.d("chooseFridgeActivity", "get failed with ", task.getException());
@@ -192,7 +195,7 @@ public class chooseFridgeActivity extends AppCompatActivity {
                                 arrayList.add(fridgeID);
                                 adapter.notifyDataSetChanged();
                                 SharedPreferences.Editor editor = savedFridges.edit();
-                                editor.putString("Fridges", fridgeID);
+                                editor.putString(fridgeID, fridgeID);
                                 editor.commit();
 
                             } else if (arrayList.contains(fridgeID)){
